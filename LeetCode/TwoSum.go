@@ -8,12 +8,14 @@ import (
 func main() {
 	var nums = []int{7, 8, 31, 4, 5, 6}
 	target := 39
+	var m = 2
 
 	//Func O(N^2)
 	fmt.Println(twoSumLong(nums, target))
 
 	//Func O(NlogN)
 	fmt.Println(twoSumShort(nums, target))
+	fmt.Println(m)
 
 }
 
