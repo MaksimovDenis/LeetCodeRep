@@ -1,10 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"sort"
 )
 
 func main() {
+
+	fmt.Println(romanToInt("MCMXCIV"))
 
 }
 
@@ -62,4 +65,37 @@ func isPalindrome(x int) bool {
 		x = x / 10
 	}
 	return reserved == num
+}
+
+func romanToInt(s string) int {
+	var a []int
+	for i := 0; i < len(s); i++ {
+		switch {
+		case string(s[i]) == "I":
+			a = append(a, 1)
+		case string(s[i]) == "V":
+			a = append(a, 5)
+		case string(s[i]) == "X":
+			a = append(a, 10)
+		case string(s[i]) == "L":
+			a = append(a, 50)
+		case string(s[i]) == "C":
+			a = append(a, 100)
+		case string(s[i]) == "D":
+			a = append(a, 500)
+		case string(s[i]) == "M":
+			a = append(a, 1000)
+		}
+	}
+	var max int
+	sum := 0
+	for i := len(a) - 1; i >= 0; i-- {
+		if a[i] < max {
+			sum -= a[i]
+		} else {
+			sum += a[i]
+		}
+		max = a[i]
+	}
+	return sum
 }
