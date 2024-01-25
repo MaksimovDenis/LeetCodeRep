@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	fmt.Println(romanToInt("MCMXCIV"))
+	fmt.Println(isValid("[][]"))
 
 }
 
@@ -117,4 +117,39 @@ func longestCommonPrefix(strs []string) string {
 		}
 	}
 	return strs[0]
+}
+
+func isValid(s string) bool {
+	var a bool
+mainLoop:
+	for i := 0; i < len(s)-1; i++ {
+		if len(s)%2 != 0 {
+			a = false
+			break mainLoop
+		}
+		switch {
+		case string(s[i]) == "(":
+			if string(s[i+1]) == ")" {
+				a = true
+			} else {
+				a = false
+				break mainLoop
+			}
+		case string(s[i]) == "[":
+			if string(s[i+1]) == "]" {
+				a = true
+			} else {
+				a = false
+				break mainLoop
+			}
+		case string(s[i]) == "{":
+			if string(s[i+1]) == "}" {
+				a = true
+			} else {
+				a = false
+				break mainLoop
+			}
+		}
+	}
+	return a
 }
