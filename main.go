@@ -7,7 +7,8 @@ import (
 
 func main() {
 
-	fmt.Println(isValid("[][]"))
+	a := []int{1, 2, 2, 3, 4, 5, 5, 5, 6, 7, 8, 9}
+	fmt.Println(removeDuplicates(a))
 
 }
 
@@ -152,4 +153,26 @@ mainLoop:
 		}
 	}
 	return a
+}
+
+func removeDuplicates(nums []int) int {
+	i := 0
+	for j := range nums {
+		if nums[i] != nums[j] {
+			i += 1
+			nums[i] = nums[j]
+		}
+	}
+	return i + 1
+}
+
+func removeElement(nums []int, val int) int {
+	i := 0
+	for _, v := range nums {
+		if v != val {
+			nums[i] = v
+			i++
+		}
+	}
+	return i
 }
