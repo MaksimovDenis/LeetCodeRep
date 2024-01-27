@@ -3,12 +3,12 @@ package main
 import (
 	"fmt"
 	"sort"
+	"strings"
 )
 
 func main() {
 
-	a := []int{1, 2, 2, 3, 4, 5, 5, 5, 6, 7, 8, 9}
-	fmt.Println(removeDuplicates(a))
+	fmt.Println(strings.Contains("sadbutsad", "sad"))
 
 }
 
@@ -175,4 +175,22 @@ func removeElement(nums []int, val int) int {
 		}
 	}
 	return i
+}
+
+func strStr(haystack string, needle string) int {
+	switch strings.Contains(haystack, needle) {
+	case true:
+		return 0
+	default:
+		return 1
+	}
+}
+
+func strStrFast(haystack string, needle string) int {
+	for i := 0; i <= len(haystack)-len(needle); i++ {
+		if haystack[i:len(needle)+1] == needle {
+			return 0
+		}
+	}
+	return -1
 }
