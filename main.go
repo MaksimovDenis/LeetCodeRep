@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-
-	fmt.Println(strings.Contains("sadbutsad", "sad"))
+	nums := []int{1, 3, 4, 6}
+	fmt.Println(searchInsert(nums, 5))
 
 }
 
@@ -191,6 +191,26 @@ func strStrFast(haystack string, needle string) int {
 		if haystack[i:len(needle)+1] == needle {
 			return 0
 		}
+	}
+	return -1
+}
+
+func searchInsert(nums []int, target int) int {
+	n := 0
+	var leftPointer = 0
+	var rightPointer = len(nums) - 1
+	for leftPointer <= rightPointer {
+		midpointer := int((leftPointer + rightPointer) / 2)
+		midValue := nums[midpointer]
+
+		if midValue == target {
+			return midpointer
+		} else if midValue < target {
+			leftPointer = midpointer + 1
+		} else {
+			rightPointer = midpointer - 1
+		}
+
 	}
 	return -1
 }
