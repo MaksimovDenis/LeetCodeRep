@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	nums := []int{1, 3, 4, 6}
-	fmt.Println(searchInsert(nums, 5))
+	nums := []int{1, 3}
+	fmt.Println(searchInsert(nums, 2))
 
 }
 
@@ -196,21 +196,37 @@ func strStrFast(haystack string, needle string) int {
 }
 
 func searchInsert(nums []int, target int) int {
-	n := 0
-	var leftPointer = 0
-	var rightPointer = len(nums) - 1
-	for leftPointer <= rightPointer {
-		midpointer := int((leftPointer + rightPointer) / 2)
+	var l = 0
+	var r = len(nums) - 1
+	for l <= r {
+		midpointer := int((l + r) / 2)
 		midValue := nums[midpointer]
 
 		if midValue == target {
 			return midpointer
 		} else if midValue < target {
-			leftPointer = midpointer + 1
+			l = midpointer + 1
 		} else {
-			rightPointer = midpointer - 1
+			r = midpointer - 1
 		}
+	}
+	return l
+}
 
+func BinarySearch(nums []int, target int) int {
+	l := 0
+	r := len(nums) - 1
+	for l <= r {
+		m := l + (r+l)/2
+		v := nums[m]
+
+		if v == target {
+			return m
+		} else if v < target {
+			l = m + 1
+		} else {
+			r = m - 1
+		}
 	}
 	return -1
 }
