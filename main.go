@@ -7,9 +7,9 @@ import (
 )
 
 func main() {
-	lengthOfLastWord1("Мне нравится голенг")
 
-	fmt.Println(lengthOfLastWord1("Мне нравится голенг"))
+	s := "Привет мир"
+	fmt.Println(lengthOfLastWord(s))
 
 }
 
@@ -233,34 +233,9 @@ func BinarySearch(nums []int, target int) int {
 }
 
 func lengthOfLastWord(s string) int {
-	var count, count1 int
-	strSlice := strings.Split(s, " ")
-	for i := 1; strings.Count(strSlice[len(strSlice)-i], "") <= 1; i++ {
-		count = i
-	}
-	lastWord := strSlice[len(strSlice)-count-1]
 
-	for i := range lastWord {
-		count1 = i + 1
-	}
-	return count1
-}
-
-func lengthOfLastWord1(s string) int {
-	n := len(s)
-	count := 0
-
-	for i := n - 1; i >= 0; i-- {
-		if count == 0 && s[i] == ' ' {
-			continue
-		} else {
-			if s[i] == ' ' {
-				break
-			}
-
-			count++
-		}
-	}
-
-	return count
+	str := strings.Trim(s, " ")
+	strSlice := strings.Split(str, " ")
+	lastWord := strSlice[len(strSlice)-1]
+	return len([]rune(lastWord))
 }
