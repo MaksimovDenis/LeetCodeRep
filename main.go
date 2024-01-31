@@ -8,8 +8,8 @@ import (
 
 func main() {
 
-	s := "Привет мир"
-	fmt.Println(lengthOfLastWord(s))
+	s := []int{8, 9, 9, 9}
+	fmt.Println(plusOne(s))
 
 }
 
@@ -233,9 +233,40 @@ func BinarySearch(nums []int, target int) int {
 }
 
 func lengthOfLastWord(s string) int {
-
 	str := strings.Trim(s, " ")
 	strSlice := strings.Split(str, " ")
 	lastWord := strSlice[len(strSlice)-1]
 	return len([]rune(lastWord))
 }
+
+func plusOne(digits []int) []int {
+	if digits[len(digits)-1] < 9 {
+		digits[len(digits)-1] = digits[len(digits)-1] + 1
+	} else {
+		count := 1
+		for i := len(digits) - 1; digits[i] == 9; i-- {
+			digits[i] = 0
+			if i == 0 {
+				break
+			}
+			count++
+
+		}
+		digits[len(digits)-count] = digits[len(digits)-count] + 1
+		if digits[0] == 1 {
+			digits = append(digits, 0)
+		}
+	}
+	return digits
+}
+
+/*func plusOne(digits []int) []int {
+	var number int
+	var numberStr string
+
+	for i := 0; i < len(digits); i++ {
+		number=num
+		numberStr += strconv.Itoa(digits[i])
+	}
+	for i,v:=range numberStr
+}*/
