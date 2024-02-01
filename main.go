@@ -3,13 +3,13 @@ package main
 import (
 	"fmt"
 	"sort"
+	"strconv"
 	"strings"
 )
 
 func main() {
 
-	s := []int{8, 9, 9, 9}
-	fmt.Println(plusOne(s))
+	fmt.Println(addBinary("11", "1"))
 
 }
 
@@ -260,13 +260,11 @@ func plusOne(digits []int) []int {
 	return digits
 }
 
-/*func plusOne(digits []int) []int {
-	var number int
-	var numberStr string
-
-	for i := 0; i < len(digits); i++ {
-		number=num
-		numberStr += strconv.Itoa(digits[i])
-	}
-	for i,v:=range numberStr
-}*/
+func addBinary(a string, b string) string {
+	aInt, _ := strconv.ParseInt(a, 2, 64)
+	bInt, _ := strconv.ParseInt(b, 2, 64)
+	fmt.Println(aInt, bInt)
+	sum := int64(aInt + bInt)
+	sumStr := strconv.FormatUint(sum, 2)
+	return sumStr
+}
