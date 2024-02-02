@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	fmt.Println(addBinary("11", "1"))
+	fmt.Println(mySqrt(1024))
 
 }
 
@@ -265,6 +265,20 @@ func addBinary(a string, b string) string {
 	bInt, _ := strconv.ParseInt(b, 2, 64)
 	fmt.Println(aInt, bInt)
 	sum := int64(aInt + bInt)
-	sumStr := strconv.FormatUint(sum, 2)
+	sumStr := strconv.FormatInt(sum, 2)
 	return sumStr
+}
+
+func mySqrt(x int) int {
+	var i int
+	for i = 1; (i * i) <= (x); i += 1 {
+		if i*i == (x) {
+			return i
+		}
+		if i*i > (x) {
+			i = i - 1
+			return i
+		}
+	}
+	return i
 }
