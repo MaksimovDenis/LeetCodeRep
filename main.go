@@ -284,22 +284,23 @@ func mySqrt(x int) int {
 }
 
 type ListNode struct {
-	    Val int
-	    Next *ListNode
-	}
+	Val  int
+	Next *ListNode
+}
 
 type List struct {
 	size int
 	head *ListNode
 }
 
-func (linkedList List) Find(index int) (*ListNode, error) {
-	if index <0 || index>=linkedList.size {
-		return nil, fmt.Errorf("Ошибка доступа за границы структуры")
+func deleteDuplicates(head *ListNode) *ListNode {
+	current := head
+	for current != nil && current.Next != nil {
+		if current.Val == current.Next.Val {
+			current.Next = current.Next.Next
+			continue
+		}
+		current = current.Next
 	}
-	var node *ListNode = linkedList.head
-	for i:=1; i<=index; i++{
-		node = node.Next.
-	}
-	return node, nil
+	return head
 }
