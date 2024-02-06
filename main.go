@@ -8,8 +8,13 @@ import (
 )
 
 func main() {
+	array1 := []int{1, 2, 3, 0, 0, 0}
+	m := 3
+	array2 := []int{2, 5, 6}
+	n := 3
+	merge(array1, n, array2, m)
 
-	fmt.Println(mySqrt(1024))
+	fmt.Println(array1)
 
 }
 
@@ -303,4 +308,9 @@ func deleteDuplicates(head *ListNode) *ListNode {
 		current = current.Next
 	}
 	return head
+}
+
+func merge(nums1 []int, m int, nums2 []int, n int) {
+	nums1 = append(nums1[:m], nums2...)
+	sort.Ints(nums1)
 }
