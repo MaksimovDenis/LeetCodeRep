@@ -5,12 +5,13 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 func main() {
-	array1 := []int{7, 1, 5, 3, 6, 4}
+	array1 := "0P"
 
-	fmt.Println(maxProfit(array1))
+	fmt.Println(isPalindromeN(array1))
 
 }
 
@@ -322,4 +323,21 @@ func maxProfit(prices []int) int {
 		}
 	}
 	return profit
+}
+
+func isPalindromeN(s string) bool {
+	var newString string
+	s = strings.ToLower(s)
+	for _, v := range s {
+		if unicode.IsLetter(v) || (unicode.IsDigit(v)) {
+			newString += string(v)
+		}
+	}
+	newStringRune := []rune(newString)
+	for i := 0; i < len(newStringRune)/2; i++ {
+		if newStringRune[i] != newStringRune[len(newStringRune)-1-i] {
+			return false
+		}
+	}
+	return true
 }
