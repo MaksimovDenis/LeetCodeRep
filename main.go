@@ -341,3 +341,23 @@ func isPalindromeN(s string) bool {
 	}
 	return true
 }
+
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func inorderTraversal(root *TreeNode) []int {
+	var ar []int
+	var inorder func(*TreeNode)
+	inorder = func(root *TreeNode) {
+		if root != nil {
+			inorder(root.Left)
+			ar = append(ar, root.Val)
+			inorder(root.Right)
+		}
+	}
+	inorder(root)
+	return ar
+}
