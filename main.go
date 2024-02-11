@@ -361,3 +361,31 @@ func inorderTraversal(root *TreeNode) []int {
 	inorder(root)
 	return ar
 }
+
+func isSameTree(p *TreeNode, q *TreeNode) bool {
+	if (p != nil) && (q != nil) {
+		return (p.Val == q.Val) && (isSameTree(p.Left, q.Left)) && (isSameTree(p.Right, q.Right))
+	} else {
+		return p == q
+	}
+}
+
+func isSymmetric(root *TreeNode) bool {
+	var check bool = false
+	var inorder func(*TreeNode)
+	inorder = func(root *TreeNode) {
+		switch {
+		case root.Left != nil && root.Right != nil:
+			check = root.Left.Val == root.Right.Val
+			inorder(root.Left)
+			inorder(root.Right)
+		case (root.Left == nil && root.Right != nil) || (root.Left != nil && root.Right == nil):
+			check = false
+		case root.Left == nil && root.Right == nil:
+			check = true
+		}
+
+	}
+	inorder(root)
+	return check
+}
