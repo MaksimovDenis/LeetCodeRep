@@ -371,21 +371,18 @@ func isSameTree(p *TreeNode, q *TreeNode) bool {
 }
 
 func isSymmetric(root *TreeNode) bool {
-	var check bool = false
-	var inorder func(*TreeNode)
-	inorder = func(root *TreeNode) {
-		switch {
-		case root.Left != nil && root.Right != nil:
-			check = root.Left.Val == root.Right.Val
-			inorder(root.Left)
-			inorder(root.Right)
-		case (root.Left == nil && root.Right != nil) || (root.Left != nil && root.Right == nil):
-			check = false
-		case root.Left == nil && root.Right == nil:
-			check = true
+	var check func(left, right *TreeNode) bool
+	check = func(left, right *TreeNode) bool {
+		if left == nil && right == nil {
+			return true
 		}
-
+		if left == nil || right == nil {
+			return false
+		}
+		if left.Val == right.Val {
+			return check(left.Left, right.Right) && check(left.Right, right.Right)
+		}
+		return left.Val == right.Val
 	}
-	inorder(root)
-	return check
+	return check(root.Left, root.Right)
 }
