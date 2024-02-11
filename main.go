@@ -380,9 +380,9 @@ func isSymmetric(root *TreeNode) bool {
 			return false
 		}
 		if left.Val == right.Val {
-			return check(left.Left, right.Right) && check(left.Right, right.Right)
+			return check(left.Left, right.Right) && check(left.Right, right.Left)
 		}
-		return left.Val == right.Val
+		return false
 	}
 	return check(root.Left, root.Right)
 }
