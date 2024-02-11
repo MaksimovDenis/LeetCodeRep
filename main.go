@@ -370,7 +370,7 @@ func isSameTree(p *TreeNode, q *TreeNode) bool {
 	}
 }
 
-func isSymmetric(root *TreeNode) bool {
+func isSymmetrical(root *TreeNode) bool {
 	var check func(left, right *TreeNode) bool
 	check = func(left, right *TreeNode) bool {
 		if left == nil && right == nil {
