@@ -9,9 +9,8 @@ import (
 )
 
 func main() {
-	array1 := "0P"
-
-	fmt.Println(isPalindromeN(array1))
+	nums := []int{-10, -3, 0, 5, 9}
+	PrintInOrder(sortedArrayToBST(nums))
 
 }
 
@@ -348,6 +347,10 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+type BinaryTree struct {
+	Root *TreeNode
+}
+
 func inorderTraversal(root *TreeNode) []int {
 	var ar []int
 	var inorder func(*TreeNode)
@@ -399,4 +402,50 @@ func max(x, y int) int {
 		return x
 	}
 	return y
+}
+
+func sortedArrayToBST(nums []int) *TreeNode {
+	root := BinaryTree{}
+	for i := 0; i < len(nums); i++ {
+		root.Insert(nums[i])
+	}
+	return root.Root
+}
+
+func (root *BinaryTree) Insert(value int) {
+	if root.Root == nil {
+		root.Root = &TreeNode{Val: value, Left: nil, Right: nil}
+	} else {
+		InsertRecursive(root.Root, value)
+	}
+}
+
+func InsertRecursive(root *TreeNode, value int) error {
+	if root.Val > value {
+		if root.Left == nil {
+			root.Left = &TreeNode{Val: value, Left: nil, Right: nil}
+			return nil
+		}
+		return InsertRecursive(root.Left, value)
+	}
+	if root.Val < value {
+		if root.Right == nil {
+			root.Right = &TreeNode{Val: value, Left: nil, Right: nil}
+			return nil
+		}
+		return InsertRecursive(root.Right, value)
+	}
+	return nil
+}
+
+func (r *BinaryTree) PrintInorderMethod() {
+	PrintInOrder(r.Root)
+}
+
+func PrintInOrder(value *TreeNode) {
+	if value != nil {
+		PrintInOrder(value.Left)
+		fmt.Print(value.Val, " ")
+		PrintInOrder(value.Right)
+	}
 }
