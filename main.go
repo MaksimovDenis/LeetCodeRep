@@ -365,6 +365,33 @@ func inorderTraversal(root *TreeNode) []int {
 	return ar
 }
 
+func minDepth(root *TreeNode) int {
+	var count int
+	var inorder func(root *TreeNode) int
+	inorder = func(root *TreeNode) int {
+		count++
+		if root == nil {
+			return 0
+		}
+		switch {
+		case count > 1:
+			return 1 + min(minDepth(root.Left), minDepth(root.Right))
+		case count == 1 && root.Left == nil && root.Right != nil:
+			return minDepth(root.Right)
+		default:
+			return minDepth(root.Left)
+		}
+	}
+	return inorder(root)
+}
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+}
+
 func isSameTree(p *TreeNode, q *TreeNode) bool {
 	if (p != nil) && (q != nil) {
 		return (p.Val == q.Val) && (isSameTree(p.Left, q.Left)) && (isSameTree(p.Right, q.Right))
