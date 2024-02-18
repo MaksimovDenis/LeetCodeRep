@@ -9,8 +9,8 @@ import (
 )
 
 func main() {
-	nums := []int{-10, -3, 0, 5, 9}
-	PrintInOrder(sortedArrayToBST(nums))
+	nums := []int{1, 1, 2, 3, 4, 5, 4, 5, 3, -1, 2}
+	fmt.Println(singleNumberXOR(nums))
 
 }
 
@@ -366,23 +366,16 @@ func inorderTraversal(root *TreeNode) []int {
 }
 
 func minDepth(root *TreeNode) int {
-	var count int
-	var inorder func(root *TreeNode) int
-	inorder = func(root *TreeNode) int {
-		count++
-		if root == nil {
-			return 0
-		}
-		switch {
-		case count > 1:
-			return 1 + min(minDepth(root.Left), minDepth(root.Right))
-		case count == 1 && root.Left == nil && root.Right != nil:
-			return minDepth(root.Right)
-		default:
-			return minDepth(root.Left)
-		}
+	if root == nil {
+		return 0
 	}
-	return inorder(root)
+	left := minDepth(root.Left)
+	right := minDepth(root.Right)
+	if left == 0 || right == 0 {
+		return 1 + left + right
+	} else {
+		return min(left, right)
+	}
 }
 
 func min(x, y int) int {
@@ -515,4 +508,44 @@ func mergeTwoLists2(list1 *ListNode, list2 *ListNode) *ListNode {
 		list.Next = list2
 	}
 	return dummy.Next
+}
+
+/*func singleNumber(nums []int) int {
+	value := nums[0]
+	for i := 1; i < len(nums); i++ {
+		if (nums[i] == value) || (nums[len(nums)-1] == value) {
+			if (i+1) != (len(nums)) && (nums[i+1]) != value {
+				value = nums[i+1]
+				i++
+			} else if (i+1) != (len(nums)) && (nums[i]) != value {
+				value = nums[i]
+			}
+		} else {
+			continue
+		}
+	}
+	return value
+
+	vanya, ok := hashmap["vanya_identity"]
+}*/
+
+func singleNumber(nums []int) int {
+	mapValues := make(map[int]int)
+	for i := 0; i < len(nums); i++ {
+		mapValues[nums[i]] = mapValues[nums[i]] + 1
+	}
+	for k, v := range mapValues {
+		if v == 1 {
+			return k
+		}
+	}
+	return 0
+}
+
+func singleNumberXOR(nums []int) int {
+	result := 0
+	for i := 0; i < len(nums); i++ {
+		result ^= nums[i]
+	}
+	return result
 }
