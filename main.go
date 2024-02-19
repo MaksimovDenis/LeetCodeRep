@@ -565,15 +565,15 @@ func preorderTraversal(root *TreeNode) []int {
 }
 
 func postorderTraversal(root *TreeNode) []int {
-	var ar []int
+	var arr []int
 	var inorder func(*TreeNode)
 	inorder = func(root *TreeNode) {
 		if root != nil {
 			inorder(root.Left)
 			inorder(root.Right)
-			ar = append(ar, root.Val)
+			arr = append(arr, root.Val)
 		}
 	}
 	inorder(root)
-	return ar
+	return arr
 }
