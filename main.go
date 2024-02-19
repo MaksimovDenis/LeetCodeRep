@@ -563,3 +563,17 @@ func preorderTraversal(root *TreeNode) []int {
 	inorder(root)
 	return ar
 }
+
+func postorderTraversal(root *TreeNode) []int {
+	var ar []int
+	var inorder func(*TreeNode)
+	inorder = func(root *TreeNode) {
+		if root != nil {
+			inorder(root.Left)
+			inorder(root.Right)
+			ar = append(ar, root.Val)
+		}
+	}
+	inorder(root)
+	return ar
+}
