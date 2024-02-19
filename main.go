@@ -549,3 +549,17 @@ func singleNumberXOR(nums []int) int {
 	}
 	return result
 }
+
+func preorderTraversal(root *TreeNode) []int {
+	var ar []int
+	var inorder func(*TreeNode)
+	inorder = func(root *TreeNode) {
+		if root != nil {
+			ar = append(ar, root.Val)
+			inorder(root.Left)
+			inorder(root.Right)
+		}
+	}
+	inorder(root)
+	return ar
+}
