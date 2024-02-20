@@ -424,14 +424,6 @@ func max(x, y int) int {
 	return y
 }
 
-func sortedArrayToBST(nums []int) *TreeNode {
-	root := BinaryTree{}
-	for i := 0; i < len(nums); i++ {
-		root.Insert(nums[i])
-	}
-	return root.Root
-}
-
 func (root *BinaryTree) Insert(value int) {
 	if root.Root == nil {
 		root.Root = &TreeNode{Val: value, Left: nil, Right: nil}
@@ -562,4 +554,26 @@ func preorderTraversal(root *TreeNode) []int {
 	}
 	inorder(root)
 	return ar
+}
+
+func postorderTraversal(root *TreeNode) []int {
+	var arr []int
+	var inorder func(*TreeNode)
+	inorder = func(root *TreeNode) {
+		if root != nil {
+			inorder(root.Left)
+			inorder(root.Right)
+			arr = append(arr, root.Val)
+		}
+	}
+	inorder(root)
+	return arr
+}
+
+func sortedArrayToBST(nums []int) *TreeNode {
+	root := BinaryTree{}
+	for i := 0; i < len(nums); i++ {
+		root.Insert(nums[i])
+	}
+	return root.Root
 }
