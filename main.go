@@ -9,8 +9,8 @@ import (
 )
 
 func main() {
-	nums := []int{1, 1, 2, 3, 4, 5, 4, 5, 3, -1, 2}
-	fmt.Println(singleNumberXOR(nums))
+	nums := []int{-10, -3, 0, 5, 9}
+	sortedArrayToBST(nums)
 
 }
 
@@ -571,9 +571,26 @@ func postorderTraversal(root *TreeNode) []int {
 }
 
 func sortedArrayToBST(nums []int) *TreeNode {
-	root := BinaryTree{}
-	for i := 0; i < len(nums); i++ {
-		root.Insert(nums[i])
+	root := TreeNode{}
+	arrayLeft := nums[:(len(nums) / 2)]
+	arrayRight := nums[(len(nums) / 2):]
+	if len(arrayRight) >= 1 {
+
 	}
-	return root.Root
+
+}
+
+func Stones(a, b string) int {
+	hashMap := make(map[rune]struct{})
+
+	for _, v := range a {
+		hashMap[v] = struct{}{}
+	}
+	var result int
+	for _, v := range b {
+		if _, ok := hashMap[v]; ok {
+			result++
+		}
+	}
+	return result
 }
