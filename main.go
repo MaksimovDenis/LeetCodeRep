@@ -578,7 +578,7 @@ func InsertRecursive(root *TreeNode, value int) {
 	}
 }
 
-func Stones(a, b string) int {
+func Stone(a, b string) int {
 	hashMap := make(map[rune]struct{})
 
 	for _, v := range a {
