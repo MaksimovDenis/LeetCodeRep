@@ -9,8 +9,9 @@ import (
 )
 
 func main() {
-	nums := []int{-10, -3, 0, 5, 9}
-	sortedArrayToBST(nums)
+	nums := []int{1, 3}
+	root := sortedArrayToBST(nums)
+	fmt.Println(*root)
 
 }
 
@@ -432,24 +433,6 @@ func (root *BinaryTree) Insert(value int) {
 	}
 }
 
-func InsertRecursive(root *TreeNode, value int) error {
-	if root.Val > value {
-		if root.Left == nil {
-			root.Left = &TreeNode{Val: value, Left: nil, Right: nil}
-			return nil
-		}
-		return InsertRecursive(root.Left, value)
-	}
-	if root.Val < value {
-		if root.Right == nil {
-			root.Right = &TreeNode{Val: value, Left: nil, Right: nil}
-			return nil
-		}
-		return InsertRecursive(root.Right, value)
-	}
-	return nil
-}
-
 func (r *BinaryTree) PrintInorderMethod() {
 	PrintInOrder(r.Root)
 }
@@ -571,13 +554,28 @@ func postorderTraversal(root *TreeNode) []int {
 }
 
 func sortedArrayToBST(nums []int) *TreeNode {
-	root := TreeNode{}
-	arrayLeft := nums[:(len(nums) / 2)]
-	arrayRight := nums[(len(nums) / 2):]
-	if len(arrayRight) >= 1 {
-
+	if len(nums) == 0 {
+		return nil
 	}
+	root := &TreeNode{Val: nums[len(nums)/2]}
+	root.Left = sortedArrayToBST(nums[:len(nums)/2])
+	root.Right = sortedArrayToBST(nums[len(nums)/2+1:])
+	return root
+}
 
+func InsertRecursive(root *TreeNode, value int) {
+	if root.Val > value {
+		if root.Left == nil {
+			root.Left = &TreeNode{Val: value, Left: nil, Right: nil}
+		}
+		InsertRecursive(root.Left, value)
+	}
+	if root.Val < value {
+		if root.Right == nil {
+			root.Right = &TreeNode{Val: value, Left: nil, Right: nil}
+		}
+		InsertRecursive(root.Right, value)
+	}
 }
 
 func Stones(a, b string) int {
