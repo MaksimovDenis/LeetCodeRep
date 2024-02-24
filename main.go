@@ -9,10 +9,56 @@ import (
 )
 
 func main() {
-	nums := []int{1, 3}
-	root := sortedArrayToBST(nums)
-	fmt.Println(*root)
+	/*nums := [][]int{{1},
+	{1, 1},
+	{1, 2, 1},
+	{1, 3, 3, 1},
+	{1, 4, 6, 4, 1}} //[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]*/
 
+	var matrix [][]int
+
+	// Добавляем элементы в двумерный массив
+	matrix = append(matrix, []int{1, 2, 3})
+	matrix = append(matrix, []int{4, 5, 6})
+	matrix = append(matrix, []int{7, 8, 9})
+
+	fmt.Println(getRow(3))
+
+}
+
+func generate(numRows int) [][]int {
+	array := make([][]int, numRows)
+	for i := 0; i < numRows; i++ {
+		array[i] = make([]int, i+1)
+		array[i][0] = 1
+		array[i][i] = 1
+		for j := 1; j < i; j++ {
+			array[i][j] = array[i-1][j-1] + array[i-1][j]
+		}
+	}
+	return array
+}
+
+func getRow(rowIndex int) []int {
+	array := make([][]int, rowIndex+1)
+	var result []int
+	if rowIndex == 0 {
+		result = []int{1}
+		return result
+	} else if rowIndex == 1 {
+		result = []int{1, 1}
+		return result
+	} else {
+		for i := 0; i <= rowIndex; i++ {
+			array[i] = make([]int, i+1)
+			array[i][0] = 1
+			array[i][i] = 1
+			for j := 1; j < i; j++ {
+				array[i][j] = array[i-1][j-1] + array[i-1][j]
+			}
+		}
+		return array[rowIndex]
+	}
 }
 
 func twoSumLong(nums []int, target int) []int {
