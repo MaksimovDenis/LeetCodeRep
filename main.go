@@ -15,15 +15,37 @@ func main() {
 	{1, 3, 3, 1},
 	{1, 4, 6, 4, 1}} //[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]*/
 
-	var matrix [][]int
+	var matrix []int = []int{3, 3, 4}
+	fmt.Println(majorityElement2(matrix))
 
-	// Добавляем элементы в двумерный массив
-	matrix = append(matrix, []int{1, 2, 3})
-	matrix = append(matrix, []int{4, 5, 6})
-	matrix = append(matrix, []int{7, 8, 9})
+}
 
-	fmt.Println(getRow(3))
+func majorityElement2(nums []int) int {
+	var element, count int
+	for i := 0; i < len(nums); i++ {
+		switch {
+		case count == 0:
+			element = nums[i]
+			count++
+		case element == nums[i]:
+			count++
+		default:
+			count--
+		}
+	}
+	return element
+}
 
+func majorityElement(nums []int) int {
+	hashMap := make(map[int]int)
+	max := 0
+	for i := 0; i < len(nums); i++ {
+		hashMap[nums[i]] += 1
+		if hashMap[nums[i]] > max {
+			max = i
+		}
+	}
+	return nums[max]
 }
 
 func generate(numRows int) [][]int {
