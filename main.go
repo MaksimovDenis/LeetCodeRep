@@ -15,9 +15,21 @@ func main() {
 	{1, 3, 3, 1},
 	{1, 4, 6, 4, 1}} //[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]*/
 
-	var matrix []int = []int{3, 3, 4}
-	fmt.Println(majorityElement2(matrix))
+	var matrix []int = []int{1, 6, 5, 2, 6}
+	fmt.Println(containsDuplicate(matrix))
 
+}
+
+func containsDuplicate(nums []int) bool {
+	hashMap := make(map[int]bool)
+	for i := 0; i < len(nums); i++ {
+		if hashMap[nums[i]] {
+			return true
+		} else {
+			hashMap[nums[i]] = true
+		}
+	}
+	return false
 }
 
 func majorityElement2(nums []int) int {
