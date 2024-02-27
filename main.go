@@ -17,21 +17,46 @@ func main() {
 	{1, 4, 6, 4, 1}} //[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]*/
 
 	var matrix []int = []int{1, 2, 3, 1, 2, 3}
-	fmt.Println(containsNearbyDuplicate(matrix, 2))
+	fmt.Println(containsNearbyDuplicate2(matrix, 2))
 
 }
 
-func containsNearbyDuplicate(nums []int, k int) bool {
-	var count int
+func containsNearbyDuplicate2(nums []int, k int) bool {
+
 	hashMap := make(map[int]int)
-	for i := 0; i < len(nums); i++ {
-		abs := math.Abs(float64(hashMap[nums[i]] - i))
-		hashMap[nums[i]] = int(abs)
-		if hashMap[nums[i]] == k {
-			count++
+	for i, v := range nums {
+		if val, ok := hashMap[v]; ok {
+			if i-val <= k {
+				return true
+			}
 		}
-		if count > 1 {
-			return true
+		hashMap[v] = i
+	}
+	return false
+}
+
+func containsNearbyDuplicate(nums []int, k int) bool {
+
+	hashMap := make(map[int][]int)
+	for i := 0; i < len(nums); i++ {
+		hashMap[nums[i]] = append(hashMap[nums[i]], i)
+		if len(hashMap[nums[i]]) > 1 {
+			ar := hashMap[nums[i]]
+			for j := 0; j < len(ar); j++ {
+				if (j + 1) == (len(ar) - 1) {
+					dif := math.Abs(float64(ar[j] - ar[j+1]))
+					if int(dif) <= k {
+						return true
+					} else {
+						break
+					}
+				} else {
+					dif := math.Abs(float64(ar[j] - ar[j+1]))
+					if int(dif) <= k {
+						return true
+					}
+				}
+			}
 		}
 	}
 	return false
