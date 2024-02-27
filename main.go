@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"sort"
 	"strconv"
 	"strings"
@@ -15,9 +16,50 @@ func main() {
 	{1, 3, 3, 1},
 	{1, 4, 6, 4, 1}} //[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]*/
 
-	var matrix []int = []int{1, 6, 5, 2, 6}
-	fmt.Println(containsDuplicate(matrix))
+	var matrix []int = []int{1, 2, 3, 1, 2, 3}
+	fmt.Println(containsNearbyDuplicate2(matrix, 2))
 
+}
+
+func containsNearbyDuplicate2(nums []int, k int) bool {
+
+	hashMap := make(map[int]int)
+	for i, v := range nums {
+		if val, ok := hashMap[v]; ok {
+			if i-val <= k {
+				return true
+			}
+		}
+		hashMap[v] = i
+	}
+	return false
+}
+
+func containsNearbyDuplicate(nums []int, k int) bool {
+
+	hashMap := make(map[int][]int)
+	for i := 0; i < len(nums); i++ {
+		hashMap[nums[i]] = append(hashMap[nums[i]], i)
+		if len(hashMap[nums[i]]) > 1 {
+			ar := hashMap[nums[i]]
+			for j := 0; j < len(ar); j++ {
+				if (j + 1) == (len(ar) - 1) {
+					dif := math.Abs(float64(ar[j] - ar[j+1]))
+					if int(dif) <= k {
+						return true
+					} else {
+						break
+					}
+				} else {
+					dif := math.Abs(float64(ar[j] - ar[j+1]))
+					if int(dif) <= k {
+						return true
+					}
+				}
+			}
+		}
+	}
+	return false
 }
 
 func containsDuplicate(nums []int) bool {
