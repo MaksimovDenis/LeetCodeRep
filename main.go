@@ -16,10 +16,14 @@ func main() {
 	{1, 3, 3, 1},
 	{1, 4, 6, 4, 1}} //[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]*/
 
-	var matrix []int = []int{1, 2, 3, 1, 2, 3}
-	fmt.Println(containsNearbyDuplicate2(matrix, 2))
+	var matrix []int = []int{8, 7, 15, 1, 6, 1, 9, 15}
+	fmt.Println(containsNearbyAlmostDuplicate(matrix, 1, 3))
 
 }
+
+func yandexVasyaMasha() {}
+func yandexGolas()      {}
+func yandexPresses()    {}
 
 func containsNearbyDuplicate2(nums []int, k int) bool {
 
@@ -35,7 +39,7 @@ func containsNearbyDuplicate2(nums []int, k int) bool {
 	return false
 }
 
-func containsNearbyDuplicate(nums []int, k int) bool {
+func containsNearbyAlmostDuplicate(nums []int, indexDiff int, valueDiff int) bool {
 
 	hashMap := make(map[int][]int)
 	for i := 0; i < len(nums); i++ {
@@ -44,15 +48,17 @@ func containsNearbyDuplicate(nums []int, k int) bool {
 			ar := hashMap[nums[i]]
 			for j := 0; j < len(ar); j++ {
 				if (j + 1) == (len(ar) - 1) {
-					dif := math.Abs(float64(ar[j] - ar[j+1]))
-					if int(dif) <= k {
+					difIndex := math.Abs(float64(ar[j] - ar[j+1]))
+					difVal := math.Abs(float64(nums[ar[j]] - nums[ar[j+1]]))
+					if (int(difIndex) <= indexDiff) && (i != j) && (int(difVal) <= valueDiff) {
 						return true
 					} else {
 						break
 					}
 				} else {
-					dif := math.Abs(float64(ar[j] - ar[j+1]))
-					if int(dif) <= k {
+					difIndex := math.Abs(float64(ar[j] - ar[j+1]))
+					difVal := math.Abs(float64(nums[ar[j]] - nums[ar[j+1]]))
+					if (int(difIndex) <= indexDiff) && (i != j) && (int(difVal) <= valueDiff) {
 						return true
 					}
 				}
