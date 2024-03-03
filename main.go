@@ -24,6 +24,9 @@ func main() {
 func yandexVasyaMasha() {}
 func yandexGolas()      {}
 func yandexPresses()    {}
+func yandexChess()      {}
+func yandexFindProfit() {}
+func yandexMath()       {}
 
 func containsNearbyDuplicate2(nums []int, k int) bool {
 
