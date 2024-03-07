@@ -27,6 +27,10 @@ func yandexPresses()    {}
 func yandexChess()      {}
 func yandexFindProfit() {}
 func yandexMath()       {}
+func yandexSchedule()   {}
+func yandexLines()      {}
+func yandexFish()       {}
+func yandexCoordintes() {}
 
 func containsNearbyDuplicate2(nums []int, k int) bool {
 
