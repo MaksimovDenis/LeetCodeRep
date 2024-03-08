@@ -32,6 +32,29 @@ func yandexLines()      {}
 func yandexFish()       {}
 func yandexCoordintes() {}
 
+func RLE(s string) string {
+	var counter int = 1
+	var result string
+	for i := 1; i < len(s); i++ {
+		if s[i] == s[i-1] {
+			counter++
+		} else {
+			if counter > 1 {
+				result += string(s[i-1]) + strconv.Itoa(counter)
+				counter = 1
+			} else {
+				result += string(s[i-1])
+			}
+		}
+	}
+	if counter > 1 {
+		result += string(s[len(s)-1]) + strconv.Itoa(counter)
+	} else {
+		result += string(s[len(s)-1])
+	}
+	return result
+}
+
 func containsNearbyDuplicate2(nums []int, k int) bool {
 
 	hashMap := make(map[int]int)
