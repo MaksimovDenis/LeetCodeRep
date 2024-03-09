@@ -10,15 +10,33 @@ import (
 )
 
 func main() {
-	/*nums := [][]int{{1},
-	{1, 1},
-	{1, 2, 1},
-	{1, 3, 3, 1},
-	{1, 4, 6, 4, 1}} //[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]*/
+	node1 := ListNode{Val: 1}
+	node2 := ListNode{Val: 2}
+	node3 := ListNode{Val: 3}
+	node4 := ListNode{Val: 4}
+	node5 := ListNode{Val: 5}
 
-	var matrix []int = []int{8, 7, 15, 1, 6, 1, 9, 15}
-	fmt.Println(containsNearbyAlmostDuplicate(matrix, 1, 3))
+	node1.Next = &node2
+	node2.Next = &node3
+	node3.Next = &node4
+	node4.Next = &node5
 
+	list := &node1
+
+	fmt.Println(reserveList(list))
+}
+
+type ListNode1 struct {
+	Val  int
+	Next *ListNode
+}
+
+func reserveList(head *ListNode) *ListNode {
+	if head != nil {
+		fmt.Println(head.Val)
+		reserveList(head.Next)
+	}
+	return head
 }
 
 func yandexVasyaMasha() {}
