@@ -10,11 +10,11 @@ import (
 )
 
 func main() {
-	node1 := ListNode{Val: 1}
-	node2 := ListNode{Val: 2}
-	node3 := ListNode{Val: 3}
-	node4 := ListNode{Val: 4}
-	node5 := ListNode{Val: 5}
+	node1 := ListNode1{Val: 1}
+	node2 := ListNode1{Val: 2}
+	node3 := ListNode1{Val: 3}
+	node4 := ListNode1{Val: 4}
+	node5 := ListNode1{Val: 5}
 
 	node1.Next = &node2
 	node2.Next = &node3
@@ -23,20 +23,24 @@ func main() {
 
 	list := &node1
 
-	fmt.Println(reserveList(list))
 }
 
 type ListNode1 struct {
 	Val  int
-	Next *ListNode
+	Next *ListNode1
 }
 
-func reserveList(head *ListNode) *ListNode {
-	if head != nil {
-		fmt.Println(head.Val)
-		reserveList(head.Next)
+func reserveList(head *ListNode1) *ListNode1 {
+	return helper(head, nil)
+}
+
+func helper(current *ListNode1, prev *ListNode1) *ListNode1 {
+	if current != nil {
+		return prev
 	}
-	return head
+	next := current.Next
+	current.Next = prev
+	return helper(next, current)
 }
 
 func yandexVasyaMasha() {}
@@ -540,6 +544,41 @@ func inorderTraversal(root *TreeNode) []int {
 	}
 	inorder(root)
 	return ar
+}
+
+func countNodes(root *TreeNode) int {
+	var counter int
+	var inorder func(node *TreeNode)
+	inorder = func(root *TreeNode) {
+		if root != nil {
+			counter += 1
+			inorder(root.Left)
+			inorder(root.Right)
+		}
+	}
+	inorder(root)
+	return counter
+}
+
+func intersection(a, b []int) []int {
+	var intersectionArray []int
+	m := make(map[int]int)
+
+	for v := range a {
+		if _, ok := m[v]; !ok {
+			m[v] = 1
+		} else {
+			m[v] += 1
+		}
+	}
+
+	for v := range b {
+		if _, ok := m[v]; ok && m[v] > 0 {
+			intersectionArray = append(intersectionArray, v)
+			m[v] -= 1
+		}
+	}
+	return intersectionArray
 }
 
 func minDepth(root *TreeNode) int {
