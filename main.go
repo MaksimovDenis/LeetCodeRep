@@ -21,16 +21,12 @@ func main() {
 	node3.Next = &node4
 	node4.Next = &node5
 
-	list := &node1
-
 }
 
 type ListNode1 struct {
 	Val  int
 	Next *ListNode1
 }
-
-func helperGetDecimalValue
 
 func reserveList(head *ListNode1) *ListNode1 {
 	return helper(head, nil)
@@ -769,6 +765,15 @@ func getDecimalValue(head *ListNode) int {
 	helper(head)
 
 	return number
+}
+
+func middleNode(head *ListNode) *ListNode {
+	slow, fast := head, head
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+	}
+	return slow
 }
 
 func postorderTraversal(root *TreeNode) []int {
