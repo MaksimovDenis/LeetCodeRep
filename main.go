@@ -30,6 +30,8 @@ type ListNode1 struct {
 	Next *ListNode1
 }
 
+func helperGetDecimalValue
+
 func reserveList(head *ListNode1) *ListNode1 {
 	return helper(head, nil)
 }
@@ -752,6 +754,21 @@ func preorderTraversal(root *TreeNode) []int {
 	}
 	inorder(root)
 	return ar
+}
+
+func getDecimalValue(head *ListNode) int {
+	var number int
+	var helper func(*ListNode)
+	helper = func(head *ListNode) {
+		if head != nil {
+			//Сдвигаем число на 1 бит (если первыое число отчно от нуля то добавляем следующий бит)
+			number = (number << 1) | head.Val
+			helper(head.Next)
+		}
+	}
+	helper(head)
+
+	return number
 }
 
 func postorderTraversal(root *TreeNode) []int {
