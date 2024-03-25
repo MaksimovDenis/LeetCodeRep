@@ -775,7 +775,40 @@ func middleNode(head *ListNode) *ListNode {
 	}
 	return slow
 }
-new
+
+func newReverse(head *ListNode) *ListNode {
+	if head == nil {
+		return nil
+	}
+
+	var revHead *ListNode
+
+	for head != nil {
+		tmp := head.Next
+		head.Next = revHead
+		revHead = head
+		head = tmp
+	}
+	return revHead
+}
+
+func isPalindromeList(head *ListNode) bool {
+	if head == nil {
+		return false
+	}
+	var array []int
+	for head != nil {
+		array = append(array, head.Val)
+		head = head.Next
+	}
+	for i := 0; i < len(array)/2; i++ {
+		if array[i] != array[len(array)-1-i] {
+			return false
+		}
+	}
+	return true
+}
+
 func postorderTraversal(root *TreeNode) []int {
 	var arr []int
 	var inorder func(*TreeNode)
