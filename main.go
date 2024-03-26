@@ -793,20 +793,46 @@ func newReverse(head *ListNode) *ListNode {
 }
 
 func isPalindromeList(head *ListNode) bool {
+
 	if head == nil {
 		return false
 	}
+
 	var array []int
+
 	for head != nil {
 		array = append(array, head.Val)
 		head = head.Next
 	}
+
 	for i := 0; i < len(array)/2; i++ {
 		if array[i] != array[len(array)-1-i] {
 			return false
 		}
 	}
+
 	return true
+}
+
+func SortZeroAndOne(arr []int) {
+	left := 0
+	right := len(arr) - 1
+
+	for left < right {
+		for left == 0 && left < right {
+			left++
+		}
+
+		for right == 1 && left < right {
+			right--
+		}
+
+		for left < right {
+			arr[left], arr[right] = arr[right], arr[left]
+			left--
+			right++
+		}
+	}
 }
 
 func postorderTraversal(root *TreeNode) []int {
