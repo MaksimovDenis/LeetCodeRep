@@ -888,3 +888,35 @@ func Stone(a, b string) int {
 	}
 	return result
 }
+
+func summaryRanges(nums []int) []string {
+
+	var result []string
+
+	if len(nums) == 0 {
+		return result
+	}
+
+	start := nums[0]
+	prev := nums[0]
+
+	for _, val := range nums[1:] {
+		if val-prev > 1 {
+			if start == prev {
+				result = append(result, fmt.Sprintf("%d", start))
+			} else {
+				result = append(result, fmt.Sprintf("%d->%d", start, prev))
+			}
+			start = val
+		}
+		prev = val
+	}
+
+	if start == prev {
+		result = append(result, fmt.Sprintf("%d", start))
+	} else {
+		result = append(result, fmt.Sprintf("%d->%d", start, prev))
+	}
+
+	return result
+}
