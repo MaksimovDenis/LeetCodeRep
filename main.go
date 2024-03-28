@@ -6,6 +6,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"unicode"
 )
 
@@ -919,4 +920,31 @@ func summaryRanges(nums []int) []string {
 	}
 
 	return result
+}
+
+func joinChannels(chs ...<-chan int) <-chan int {
+	multiplexChannel := make(chan int)
+
+	var wg sync.WaitGroup
+
+	multiplex := func(c <-chan int) {
+		defer wg.Done()
+		for i := range c {
+			multiplexChannel <- i
+		}
+	}
+
+	wg.Add(len(chs))
+
+	for _, c := range chs {
+		go multiplex(c)
+	}
+
+	go func() {
+		wg.Wait()
+		close(multiplexChannel)
+	}()
+
+	return multiplexChannel
+
 }
