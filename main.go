@@ -949,7 +949,7 @@ func joinChannels(chs ...<-chan int) <-chan int {
 
 }
 
-type MyStack struct {
+/*type MyStack struct {
 	queue []int
 }
 
@@ -976,7 +976,7 @@ func (this *MyStack) Empty() bool {
 		return true
 	}
 	return false
-}
+}*/
 
 func invertTree(root *TreeNode) *TreeNode {
 	var inorder func(root *TreeNode)
@@ -991,4 +991,33 @@ func invertTree(root *TreeNode) *TreeNode {
 	}
 	inorder(root)
 	return root
+}
+
+type MyQueue struct {
+	stack []int
+}
+
+func Constructor() MyQueue {
+	return MyQueue{}
+}
+
+func (this *MyQueue) Push(x int) {
+	this.stack = append(this.stack, x)
+}
+
+func (this *MyQueue) Pop() int {
+	tmp := this.stack[0]
+	this.stack = this.stack[1:len(this.stack)]
+	return tmp
+}
+
+func (this *MyQueue) Peek() int {
+	return this.stack[0]
+}
+
+func (this *MyQueue) Empty() bool {
+	if len(this.stack) == 0 {
+		return true
+	}
+	return false
 }
