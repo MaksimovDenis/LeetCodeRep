@@ -1021,3 +1021,20 @@ func (this *MyQueue) Empty() bool {
 	}
 	return false
 }
+
+func isAnagram(s string, t string) bool {
+	if len(s) == len(t) {
+		str := make(map[string]int)
+		for i := 0; i < len(s); i++ {
+			str[string(s[i])] += 1
+			str[string(t[i])] -= 1
+		}
+		for _, v := range str {
+			if v != 0 {
+				return false
+			}
+		}
+		return true
+	}
+	return false
+}
