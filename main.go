@@ -1027,7 +1027,7 @@ func isAnagram(s string, t string) bool {
 		str := make(map[string]int)
 		for i := 0; i < len(s); i++ {
 			str[string(s[i])] += 1
-			str[string(t[i])] -= 1
+			str[string(t[i])] -= 1s
 		}
 		for _, v := range str {
 			if v != 0 {
