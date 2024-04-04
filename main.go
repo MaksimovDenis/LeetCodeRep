@@ -11,16 +11,8 @@ import (
 )
 
 func main() {
-	node1 := ListNode1{Val: 1}
-	node2 := ListNode1{Val: 2}
-	node3 := ListNode1{Val: 3}
-	node4 := ListNode1{Val: 4}
-	node5 := ListNode1{Val: 5}
 
-	node1.Next = &node2
-	node2.Next = &node3
-	node3.Next = &node4
-	node4.Next = &node5
+	fmt.Println(addDigits(199))
 
 }
 
@@ -991,6 +983,27 @@ func invertTree(root *TreeNode) *TreeNode {
 	}
 	inorder(root)
 	return root
+}
+
+func addDigits(num int) int {
+	if num < 10 {
+		return num
+	}
+	var helper func(num int) int
+	helper = func(num int) int {
+		var value int
+		numStr := strconv.Itoa(num)
+		for _, v := range numStr {
+			tmp, _ := strconv.Atoi(string(v))
+			value = value + tmp
+		}
+		num = value
+		if num < 10 {
+			return num
+		}
+		return helper(num)
+	}
+	return helper(num)
 }
 
 type MyQueue struct {
