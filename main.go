@@ -1051,4 +1051,20 @@ func isAnagram(s string, t string) bool {
 	}
 	return false
 }
-new task 
+
+func missingNumber(nums []int) int {
+	sort.Ints(nums)
+	var result int
+	if nums[0] != 0 {
+		return 0
+	}
+	for i := 0; i < len(nums)-1; i++ {
+		if nums[i]+1 == nums[i+1] {
+			continue
+		} else {
+			result = nums[i] + 1
+			return result
+		}
+	}
+	return nums[len(nums)-1] + 1
+}
