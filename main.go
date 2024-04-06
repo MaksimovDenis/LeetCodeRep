@@ -11,8 +11,8 @@ import (
 )
 
 func main() {
-
-	fmt.Println(addDigits(199))
+	nums := []int{0, 1, 0, 3, 12}
+	moveZeroes(nums)
 
 }
 
@@ -1067,4 +1067,21 @@ func missingNumber(nums []int) int {
 		}
 	}
 	return nums[len(nums)-1] + 1
+}
+
+func moveZeroes(nums []int) {
+	sort.Ints(nums)
+	if len(nums) > 1 {
+		count := 0
+		for i := 0; nums[i] == 0; i++ {
+			count++
+		}
+		r := 0
+		for i := 0; i < count; i++ {
+			nums = append(nums, 0)
+			nums = nums[r+1:]
+
+		}
+	}
+	fmt.Println(nums)
 }
