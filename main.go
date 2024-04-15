@@ -1085,3 +1085,53 @@ func moveZeroes(nums []int) {
 	}
 	fmt.Println(nums)
 }
+
+func wordPattern(pattern string, s string) bool {
+	var tmp string
+	newS := strings.Split(s, " ")
+	if len(string(pattern)) != len(newS) {
+		return false
+	}
+
+	strMap := make(map[rune]string)
+	used := make(map[string]bool)
+	for i, v := range pattern {
+		if _, ok := strMap[v]; !ok {
+			if tmp != newS[i] && used[newS[i]] == false {
+				strMap[v] = newS[i]
+				tmp = newS[i]
+				used[newS[i]] = true
+				continue
+			} else {
+				return false
+			}
+		} else {
+			if strMap[v] != newS[i] {
+				return false
+			}
+		}
+	}
+	return true
+
+}
+
+func wordPattern1(pattern string, s string) bool {
+	newS := strings.Split(s, " ")
+	if len(string(pattern)) != len(newS) {
+		return false
+	}
+
+	strMap := make(map[string]string)
+	for i := 0; i < len(newS); i++ {
+		if _, ok := strMap[newS[i]]; !ok {
+			strMap[newS[i]] = string(pattern[i])
+			continue
+		} else {
+			if strMap[newS[i]] != string(pattern[i]) {
+				return false
+			}
+		}
+	}
+	return true
+
+}
