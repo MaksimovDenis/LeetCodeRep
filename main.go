@@ -11,16 +11,8 @@ import (
 )
 
 func main() {
-	node1 := ListNode1{Val: 1}
-	node2 := ListNode1{Val: 2}
-	node3 := ListNode1{Val: 3}
-	node4 := ListNode1{Val: 4}
-	node5 := ListNode1{Val: 5}
-
-	node1.Next = &node2
-	node2.Next = &node3
-	node3.Next = &node4
-	node4.Next = &node5
+	nums := []int{0, 1, 0, 3, 12}
+	moveZeroes(nums)
 
 }
 
@@ -993,6 +985,27 @@ func invertTree(root *TreeNode) *TreeNode {
 	return root
 }
 
+func addDigits(num int) int {
+	if num < 10 {
+		return num
+	}
+	var helper func(num int) int
+	helper = func(num int) int {
+		var value int
+		numStr := strconv.Itoa(num)
+		for _, v := range numStr {
+			tmp, _ := strconv.Atoi(string(v))
+			value = value + tmp
+		}
+		num = value
+		if num < 10 {
+			return num
+		}
+		return helper(num)
+	}
+	return helper(num)
+}
+
 type MyQueue struct {
 	stack []int
 }
@@ -1037,4 +1050,88 @@ func isAnagram(s string, t string) bool {
 		return true
 	}
 	return false
+}
+
+func missingNumber(nums []int) int {
+	sort.Ints(nums)
+	var result int
+	if nums[0] != 0 {
+		return 0
+	}
+	for i := 0; i < len(nums)-1; i++ {
+		if nums[i]+1 == nums[i+1] {
+			continue
+		} else {
+			result = nums[i] + 1
+			return result
+		}
+	}
+	return nums[len(nums)-1] + 1
+}
+
+func moveZeroes(nums []int) {
+	sort.Ints(nums)
+	if len(nums) > 1 {
+		count := 0
+		for i := 0; nums[i] == 0; i++ {
+			count++
+		}
+		r := 0
+		for i := 0; i < count; i++ {
+			nums = append(nums, 0)
+			nums = nums[r+1:]
+
+		}
+	}
+	fmt.Println(nums)
+}
+
+func wordPattern(pattern string, s string) bool {
+	var tmp string
+	newS := strings.Split(s, " ")
+	if len(string(pattern)) != len(newS) {
+		return false
+	}
+
+	strMap := make(map[rune]string)
+	used := make(map[string]bool)
+	for i, v := range pattern {
+		if _, ok := strMap[v]; !ok {
+			if tmp != newS[i] && used[newS[i]] == false {
+				strMap[v] = newS[i]
+				tmp = newS[i]
+				used[newS[i]] = true
+				continue
+			} else {
+				return false
+			}
+		} else {
+			if strMap[v] != newS[i] {
+				return false
+			}
+		}
+	}
+	return true
+
+}
+
+func wordPattern1(pattern string, s string) bool {
+	newS := strings.Split(s, " ")
+	if len(string(pattern)) != len(newS) {
+		return false
+	}
+
+	strMap := make(map[string]string)
+	for i := 0; i < len(newS); i++ {
+		if _, ok := strMap[newS[i]]; !ok {
+			strMap[newS[i]] = string(pattern[i])
+			continue
+		} else {
+			if strMap[newS[i]] != string(pattern[i]) {
+				return false
+			}
+		}
+	}
+	return true
+
 }
