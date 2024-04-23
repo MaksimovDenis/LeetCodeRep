@@ -1141,14 +1141,43 @@ func canWinNim(n int) bool {
 }
 
 func isPowerOfThree(n int) bool {
-	if n == 1 {
-		return true
+	if n < 1 {
+		return false
 	}
-	for (n > 0) && (n%3 == 0) {
+	for n%3 == 0 {
 		n = n / 3
-		if n == 1 {
-			return true
-		}
 	}
-	return false
+
+	return n == 1
+}
+
+func countBits(n int) []int {
+	var result []int
+	var sum int
+	for i := 0; i <= n; i++ {
+		x_double := strconv.FormatInt(int64(i), 2)
+		for _, j := range x_double {
+			number, _ := strconv.Atoi(string(j))
+			sum += number
+		}
+		result = append(result, sum)
+		sum = 0
+	}
+	return result
+}
+
+func reverseString(s []byte) {
+	for i := 0; i < len(s)/2; i++ {
+		s[i], s[len(s)-1-i] = s[len(s)-1-i], s[i]
+	}
+}
+
+func isPowerOfFour(n int) bool {
+	if n < 1 {
+		return false
+	}
+	for n%4 == 0 {
+		n = n / 4
+	}
+	return n == 1
 }
