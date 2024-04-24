@@ -11,8 +11,8 @@ import (
 )
 
 func main() {
-
-	fmt.Println(canWinNim(5))
+	s := "leetcode"
+	fmt.Println(reverseVowels(s))
 
 }
 
@@ -1181,3 +1181,68 @@ func isPowerOfFour(n int) bool {
 	}
 	return n == 1
 }
+
+func reverseVowels(s string) string {
+
+	str := make(map[string]struct{})
+	str["a"] = struct{}{}
+	str["e"] = struct{}{}
+	str["i"] = struct{}{}
+	str["o"] = struct{}{}
+	str["u"] = struct{}{}
+
+	var slice []string
+	for _, i := range s {
+		slice = append(slice, string(i))
+	}
+
+	left := 0
+	right := len(slice) - 1
+
+	for left < right {
+
+		_, leftIsVowel := str[strings.ToLower(slice[left])]
+
+		for left < right && !leftIsVowel {
+			left++
+			_, leftIsVowel = str[strings.ToLower(slice[left])]
+		}
+
+		_, rightIsVowel := str[strings.ToLower(slice[right])]
+
+		for left < right && !rightIsVowel {
+			right--
+			_, rightIsVowel = str[strings.ToLower(slice[right])]
+		}
+
+		for left < right {
+			slice[left], slice[right] = slice[right], slice[left]
+			left++
+			right--
+			break
+		}
+	}
+	result := strings.Join(slice, "")
+	return result
+}
+
+/*func SortZeroAndOne(arr []int) {
+	left := 0
+	right := len(arr) - 1
+
+	for left < right {
+		for left == 0 && left < right {
+			left++
+		}
+
+		for right == 1 && left < right {
+			right--
+		}
+
+		for left < right {
+			arr[left], arr[right] = arr[right], arr[left]
+			left++
+			right--
+		}
+	}
+}*/
