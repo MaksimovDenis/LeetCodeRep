@@ -1226,23 +1226,25 @@ func reverseVowels(s string) string {
 	return result
 }
 
-/*func SortZeroAndOne(arr []int) {
-	left := 0
-	right := len(arr) - 1
+func intersection(nums1 []int, nums2 []int) []int {
 
-	for left < right {
-		for left == 0 && left < right {
-			left++
+	compare := make(map[int]bool)
+	var result []int
+
+	if len(nums1) >= len(nums2) {
+		for i := 0; i < len(nums1); i++ {
+			if i < len(nums2) && compare[nums2[i]] == false {
+				result = append(result, nums1[i])
+				compare[nums2[i]] = true
+			}
 		}
-
-		for right == 1 && left < right {
-			right--
-		}
-
-		for left < right {
-			arr[left], arr[right] = arr[right], arr[left]
-			left++
-			right--
+	} else {
+		for i := 0; i < len(nums2); i++ {
+			if i < len(nums1) && compare[nums1[i]] == false {
+				result = append(result, nums2[i])
+				compare[nums1[i]] = true
+			}
 		}
 	}
-}*/
+	return result
+}
