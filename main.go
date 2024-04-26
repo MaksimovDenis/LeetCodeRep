@@ -1283,3 +1283,12 @@ func intersectArray2(nums1 []int, nums2 []int) []int {
 	}
 	return result
 }
+
+func isPerfectSquare(num int) bool {
+	var i, n int
+	for n < num {
+		n = i * i
+		i++
+	}
+	return n == num
+}
