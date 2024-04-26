@@ -1226,23 +1226,58 @@ func reverseVowels(s string) string {
 	return result
 }
 
-func intersection(nums1 []int, nums2 []int) []int {
+func intersectionArrays(nums1 []int, nums2 []int) []int {
 
-	compare := make(map[int]bool)
+	compare := make(map[int]struct{})
 	var result []int
 
 	if len(nums1) >= len(nums2) {
 		for i := 0; i < len(nums1); i++ {
-			if i < len(nums2) && compare[nums2[i]] == false {
-				result = append(result, nums1[i])
-				compare[nums2[i]] = true
+			compare[nums1[i]] = struct{}{}
+		}
+		for i := 0; i < len(nums2); i++ {
+			if _, ok := compare[nums2[i]]; ok {
+				result = append(result, nums2[i])
+				delete(compare, nums2[i])
 			}
 		}
 	} else {
 		for i := 0; i < len(nums2); i++ {
-			if i < len(nums1) && compare[nums1[i]] == false {
+			compare[nums2[i]] = struct{}{}
+		}
+		for i := 0; i < len(nums1); i++ {
+			if _, ok := compare[nums1[i]]; ok {
+				result = append(result, nums1[i])
+				delete(compare, nums1[i])
+			}
+		}
+	}
+	return result
+}
+
+func intersectArray2(nums1 []int, nums2 []int) []int {
+
+	var result []int
+	array := make(map[int]int)
+
+	if len(nums1) >= len(nums2) {
+		for i := 0; i < len(nums2); i++ {
+			array[nums2[i]] += 1
+		}
+		for i := 0; i < len(nums1); i++ {
+			if array[nums1[i]] > 0 {
+				result = append(result, nums1[i])
+				array[nums1[i]] -= 1
+			}
+		}
+	} else {
+		for i := 0; i < len(nums1); i++ {
+			array[nums1[i]] += 1
+		}
+		for i := 0; i < len(nums2); i++ {
+			if array[nums2[i]] > 0 {
 				result = append(result, nums2[i])
-				compare[nums1[i]] = true
+				array[nums2[i]] -= 1
 			}
 		}
 	}
