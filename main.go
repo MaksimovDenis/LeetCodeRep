@@ -1294,16 +1294,17 @@ func isPerfectSquare(num int) bool {
 }
 
 func canConstruct(ransomNote string, magazine string) bool {
-	var result int
-	for v, _ := range ransomNote {
-		result += v
-	}
-	for v, _ := range magazine {
-		result -= v
-	}
-	return result == 0
-}
 
-func test() {
-	fmt.Println("Test")
+	arr := make(map[rune]int)
+
+	for _, v := range magazine {
+		arr[v] += 1
+	}
+	for _, v := range ransomNote {
+		if arr[v] == 0 {
+			return false
+		}
+		arr[v] -= 1
+	}
+	return true
 }
