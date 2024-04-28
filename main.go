@@ -1308,3 +1308,18 @@ func canConstruct(ransomNote string, magazine string) bool {
 	}
 	return true
 }
+
+func firstUniqChar(s string) int {
+
+	arr := make(map[rune]int)
+
+	for _, v := range s {
+		arr[v] += 1
+	}
+	for i, v := range s {
+		if arr[v] == 1 {
+			return i
+		}
+	}
+	return -1
+}
