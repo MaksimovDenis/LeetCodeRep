@@ -1292,3 +1292,18 @@ func isPerfectSquare(num int) bool {
 	}
 	return n == num
 }
+
+func canConstruct(ransomNote string, magazine string) bool {
+	var result int
+	for v, _ := range ransomNote {
+		result += v
+	}
+	for v, _ := range magazine {
+		result -= v
+	}
+	return result == 0
+}
+
+func test() {
+	fmt.Println("Test")
+}
