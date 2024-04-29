@@ -11,8 +11,7 @@ import (
 )
 
 func main() {
-	s := "leetcode"
-	fmt.Println(reverseVowels(s))
+	fmt.Println(findTheDifference("", "y"))
 
 }
 
@@ -1322,4 +1321,66 @@ func firstUniqChar(s string) int {
 		}
 	}
 	return -1
+}
+
+func findTheDifference(s string, t string) byte {
+	var result byte
+	arr := make(map[byte]int)
+
+	if len(s) == 0 {
+		result = byte(t[len(t)-1])
+	}
+
+	for _, v := range t {
+		arr[byte(v)] += 1
+	}
+	for _, v := range s {
+		arr[byte(v)] -= 1
+		if arr[byte(v)] == 0 {
+			delete(arr, byte(v))
+		}
+	}
+
+	for key := range arr {
+		result = key
+	}
+	return result
+}
+
+func isSubsequence(s string, t string) bool {
+
+	var arr []string
+	var count int
+	if len(s) == 0 {
+		return true
+	}
+	for _, v := range s {
+		arr = append(arr, string(v))
+	}
+
+	for i := 0; i < len(string(t)); i++ {
+		if arr[count] == string(t[i]) {
+			count++
+			if count == len(string(s)) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func sumOfLeftLeaves(root *TreeNode) int {
+	var result int
+	var inorder func(*TreeNode)
+	inorder = func(root *TreeNode) {
+		if root != nil {
+			if root.Left != nil && root.Left.Left == nil && root.Left.Right == nil {
+				result += root.Left.Val
+			}
+			inorder(root.Left)
+			inorder(root.Right)
+		}
+	}
+	inorder(root)
+	return result
 }
