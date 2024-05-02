@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	fmt.Println(findTheDifference("", "y"))
+	fmt.Println(longestPalindrome("abb"))
 
 }
 
@@ -1386,28 +1386,26 @@ func sumOfLeftLeaves(root *TreeNode) int {
 }
 
 func longestPalindrome(s string) int {
-	arr := make(map[string]int)
+	arr := make(map[rune]int)
 	var result int
-	var check int
+	var check bool
 
 	for _, v := range s {
-		arr[string(v)] += 1
-	}
-
-	if len(arr) == 1 {
-		return len(string(s))
+		arr[v] += 1
 	}
 
 	for _, v := range arr {
-		if v == 1 && check == 0 && len(arr) > 2 {
-			check += 1
-		}
 		if v%2 == 0 {
 			result += v
 		} else if v%2 != 0 {
 			result += v - 1
+			check = true
 		}
 	}
 
-	return result + check
+	if check {
+		result++
+	}
+
+	return result
 }
