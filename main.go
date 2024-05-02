@@ -1384,3 +1384,30 @@ func sumOfLeftLeaves(root *TreeNode) int {
 	inorder(root)
 	return result
 }
+
+func longestPalindrome(s string) int {
+	arr := make(map[string]int)
+	var result int
+	var check int
+
+	for _, v := range s {
+		arr[string(v)] += 1
+	}
+
+	if len(arr) == 1 {
+		return len(string(s))
+	}
+
+	for _, v := range arr {
+		if v == 1 && check == 0 && len(arr) > 2 {
+			check += 1
+		}
+		if v%2 == 0 {
+			result += v
+		} else if v%2 != 0 {
+			result += v - 1
+		}
+	}
+
+	return result + check
+}
