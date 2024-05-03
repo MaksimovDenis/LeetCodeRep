@@ -1427,3 +1427,23 @@ func fizzBuzz(n int) []string {
 	}
 	return result
 }
+
+func thirdMax(nums []int) int {
+	sort.Ints(nums)
+	arr := make(map[int]struct{})
+	var result []int
+
+	for i := 0; i < len(nums); i++ {
+		if _, ok := arr[nums[i]]; !ok {
+			result = append(result, nums[i])
+			arr[nums[i]] = struct{}{}
+		}
+	}
+	if len(result) >= 3 {
+		return result[len(result)-3]
+	} else if len(result) == 2 {
+		return result[len(result)-1]
+	} else {
+		return result[len(result)-1]
+	}
+}
