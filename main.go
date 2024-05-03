@@ -1409,3 +1409,21 @@ func longestPalindrome(s string) int {
 
 	return result
 }
+
+func fizzBuzz(n int) []string {
+
+	var result []string
+	for i := 0; i < n; i++ {
+		switch {
+		case (i+1)%3 == 0 && (i+1)%5 == 0:
+			result = append(result, "FizzBuzz")
+		case (i+1)%3 == 0 && (i+1)%5 != 0:
+			result = append(result, "Fizz")
+		case (i+1)%5 == 0:
+			result = append(result, "Buzz")
+		default:
+			result = append(result, strconv.Itoa(i+1))
+		}
+	}
+	return result
+}
