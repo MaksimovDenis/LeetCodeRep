@@ -1469,3 +1469,23 @@ func countSegments(s string) int {
 	}
 	return count - 1
 }
+
+func arrangeCoins(n int) int {
+
+	var count int
+	r := n
+	if n == 1 {
+		return 1
+	}
+	for i := 0; i < n; i++ {
+		r = r - i
+		if r > 0 {
+			count++
+		} else if r == 0 {
+			return count
+		} else if r < 0 {
+			break
+		}
+	}
+	return count - 1
+}
