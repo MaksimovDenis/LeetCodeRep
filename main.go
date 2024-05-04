@@ -1447,3 +1447,25 @@ func thirdMax(nums []int) int {
 		return result[len(result)-1]
 	}
 }
+
+func countSegments(s string) int {
+
+	var str string
+	var count int = 1
+
+	for _, v := range s {
+		if string(v) != " " {
+			str += string(v)
+		} else {
+			strings.TrimSpace(str)
+			if str != "" {
+				count += 1
+				str = ""
+			}
+		}
+	}
+	if str != "" {
+		return count
+	}
+	return count - 1
+}
