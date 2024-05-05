@@ -11,8 +11,8 @@ import (
 )
 
 func main() {
-	arr := []int{4, 3, 2, 7, 8, 2, 3, 1}
-	fmt.Println(findDisappearedNumbers(arr))
+	str := "abcabcabcabc"
+	fmt.Println(repeatedSubstringPattern(str))
 
 }
 
@@ -1513,4 +1513,9 @@ func isPowerOfTwo(n int) bool {
 		n = n / 2
 	}
 	return n == 1
+}
+
+func repeatedSubstringPattern(s string) bool {
+	doubled := s + s
+	return strings.Contains(doubled[1:len(doubled)-1], s)
 }
