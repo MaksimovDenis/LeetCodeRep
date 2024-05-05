@@ -11,7 +11,8 @@ import (
 )
 
 func main() {
-	fmt.Println(longestPalindrome("abb"))
+	arr := []int{4, 3, 2, 7, 8, 2, 3, 1}
+	fmt.Println(findDisappearedNumbers(arr))
 
 }
 
@@ -1488,4 +1489,28 @@ func arrangeCoins(n int) int {
 		}
 	}
 	return count - 1
+}
+
+func findDisappearedNumbers(nums []int) []int {
+	sort.Ints(nums)
+	var arr []int
+	for i := 0; i < len(nums); i++ {
+		if i != len(nums)-1 && nums[i+1] != nums[i]+1 && nums[i+1] != nums[i] {
+			arr = append(arr, nums[i]+1)
+		}
+	}
+	if len(arr) > 2 {
+		arr = append(arr[:1], arr[len(arr)-1:]...)
+	}
+	return arr
+}
+
+func isPowerOfTwo(n int) bool {
+	if n < 1 {
+		return false
+	}
+	for n%2 == 0 {
+		n = n / 2
+	}
+	return n == 1
 }
