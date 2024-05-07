@@ -1532,3 +1532,8 @@ func twoSum(nums []int, target int) []int {
 	}
 	return []int{}
 }
+func isValid(s string) bool {
+	for i := 0; i < len(string(s)); i++ {
+
+	}
+}
