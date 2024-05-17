@@ -11,8 +11,11 @@ import (
 )
 
 func main() {
-	str := "abcabcabcabc"
-	fmt.Println(repeatedSubstringPattern(str))
+	l1 := &ListNodeTwo{Val: 2, Next: &ListNodeTwo{Val: 4, Next: &ListNodeTwo{Val: 3}}}
+
+	l2 := &ListNodeTwo{Val: 5, Next: &ListNodeTwo{Val: 6, Next: &ListNodeTwo{Val: 4}}}
+	list := addTwoNumbers(l1, l2)
+	displayList(list)
 
 }
 
@@ -294,7 +297,7 @@ func longestCommonPrefix(strs []string) string {
 	return strs[0]
 }
 
-func isValid(s string) bool {
+func isValid1(s string) bool {
 	var a bool
 mainLoop:
 	for i := 0; i < len(s)-1; i++ {
@@ -1532,8 +1535,62 @@ func twoSum(nums []int, target int) []int {
 	}
 	return []int{}
 }
-func isValid(s string) bool {
-	for i := 0; i < len(string(s)); i++ {
 
+func isValid(s string) bool {
+	cont := make(map[string]int)
+
+	for _, v := range s {
+		cont[string(v)]++
 	}
+
+	if cont["{"] != cont["}"] {
+		return false
+	} else if cont["("] != cont[")"] {
+		return false
+	} else if cont["["] != cont["]"] {
+		return false
+	}
+
+	return true
+}
+
+type ListNodeTwo struct {
+	Val  int
+	Next *ListNodeTwo
+}
+
+func addTwoNumbers(l1 *ListNodeTwo, l2 *ListNodeTwo) *ListNodeTwo {
+	var num1, num2 int
+
+	var helper func(l *ListNodeTwo, numList int)
+
+	helper = func(l *ListNodeTwo, num int) {
+		num = num*10 + l.Val
+		if l != nil {
+			helper(l.Next, num)
+		}
+	}
+
+	helper(l1, num1)
+	helper(l2, num2)
+
+	sum := num1 + num2
+
+	var l3 *ListNodeTwo
+
+	for sum != 0 {
+		newNode := &ListNodeTwo{Val: sum % 10}
+		sum /= 10
+		l3.Next = newNode
+	}
+	return l3
+}
+
+func displayList(head *ListNodeTwo) {
+	current := head
+	for current != nil {
+		fmt.Print(current.Val, " ")
+		current = current.Next
+	}
+	fmt.Println()
 }
