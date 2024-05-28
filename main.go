@@ -1688,3 +1688,5 @@ func (this *MyHashSet) Contains(key int) bool {
 	}
 	return false
 }
+
+//test2
