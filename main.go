@@ -1561,18 +1561,26 @@ type ListNodeTwo struct {
 
 func addTwoNumbers(l1 *ListNodeTwo, l2 *ListNodeTwo) *ListNodeTwo {
 	var num1, num2 int
-
-	var helper func(l *ListNodeTwo, numList int)
-
-	helper = func(l *ListNodeTwo, num int) {
-		num = num*10 + l.Val
+	var helper1, helper2 func(l *ListNodeTwo, num int)
+	helper1 = func(l *ListNodeTwo, num1 int) {
 		if l != nil {
-			helper(l.Next, num)
+			num1 = num1*10 + l.Val
+			l = l.Next
+			helper1(l, num1)
 		}
 	}
 
-	helper(l1, num1)
-	helper(l2, num2)
+	helper1(l1, num1)
+
+	helper2 = func(l *ListNodeTwo, num int) {
+		if l != nil {
+			num = num*10 + l.Val
+			l = l.Next
+			helper2(l, num)
+		}
+		return
+	}
+	helper2(l2, num2)
 
 	sum := num1 + num2
 
@@ -1593,4 +1601,90 @@ func displayList(head *ListNodeTwo) {
 		current = current.Next
 	}
 	fmt.Println()
+}
+
+// Time complexity: Constructor: O(1)
+//
+//	Add: O(1)
+//	Remove: O(1)
+//	Contains: O(1)
+type MyHashSet struct {
+	count         int
+	filledBuckets int
+	bucketCount   int
+	buckets       [][]int
+	loadFactor    int
+}
+
+func ConstructorHash() MyHashSet {
+	return MyHashSet{
+		count:         0,
+		filledBuckets: 0,
+		bucketCount:   8,
+		buckets:       make([][]int, 8),
+		loadFactor:    80,
+	}
+}
+
+func (this *MyHashSet) hashFunc(key int) int {
+	// mask last x bits to find corresponding bucket
+	return key & (this.bucketCount - 1)
+}
+
+func (this *MyHashSet) Add(key int) {
+	hash := this.hashFunc(key)
+	// if already exists, do nothing
+	for _, val := range this.buckets[hash] {
+		if val == key {
+			return
+		}
+	}
+	// 80% of filled buckets = bucketCount * 80 / 100
+	// if at load capacity, add buckets and redistribute
+	if this.filledBuckets >= this.bucketCount*this.loadFactor/100 {
+		this.bucketCount = this.bucketCount * 2
+		temp := this.buckets
+		this.buckets = make([][]int, this.bucketCount)
+		this.filledBuckets = 0
+		for _, bucket := range temp {
+			for _, val := range bucket {
+				newHash := this.hashFunc(val)
+				if this.buckets[newHash] == nil {
+					this.filledBuckets++
+				}
+				this.buckets[newHash] = append(this.buckets[newHash], val)
+			}
+		}
+	}
+	hash = this.hashFunc(key)
+	if this.buckets[hash] == nil {
+		// an empty bucket will be filled
+		this.filledBuckets++
+	}
+	this.buckets[hash] = append(this.buckets[hash], key)
+	this.count++
+}
+
+func (this *MyHashSet) Remove(key int) {
+	hash := this.hashFunc(key)
+	for i, val := range this.buckets[hash] {
+		if val == key {
+			this.buckets[hash] = append(this.buckets[hash][:i],
+				this.buckets[hash][i+1:]...)
+			this.count--
+			if len(this.buckets[hash]) == 0 {
+				this.filledBuckets--
+			}
+		}
+	}
+}
+
+func (this *MyHashSet) Contains(key int) bool {
+	hash := this.hashFunc(key)
+	for _, val := range this.buckets[hash] {
+		if val == key {
+			return true
+		}
+	}
+	return false
 }
