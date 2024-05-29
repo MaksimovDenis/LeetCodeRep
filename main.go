@@ -1689,4 +1689,48 @@ func (this *MyHashSet) Contains(key int) bool {
 	return false
 }
 
-//test2
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+
+	m := make(map[*ListNode]bool)
+
+	var helper func(list *ListNode)
+	helper = func(list *ListNode) {
+		m[list] = true
+		if list.Next != nil {
+			helper(list.Next)
+		}
+	}
+	if headA != nil {
+		helper(headA)
+	}
+	var result *ListNode
+	helper = func(list *ListNode) {
+		if _, ok := m[list]; ok {
+			result = list
+		} else {
+			if list.Next != nil {
+				helper(list.Next)
+			}
+		}
+	}
+	if headB != nil {
+		helper(headB)
+	}
+	return result
+}
+
+func getIntersectionNodeV2(headA, headB *ListNode) *ListNode {
+	seen := make(map[*ListNode]bool)
+
+	for n := headA; n != nil; n = n.Next {
+		seen[n] = true
+	}
+
+	for n := headB; n != nil; n = n.Next {
+		if _, ok := seen[n]; ok {
+			return n
+		}
+	}
+
+	return nil
+}
