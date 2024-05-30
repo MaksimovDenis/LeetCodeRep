@@ -1734,3 +1734,65 @@ func getIntersectionNodeV2(headA, headB *ListNode) *ListNode {
 
 	return nil
 }
+
+func hasCycle(head *ListNode) bool {
+	vasitedNode := make(map[*ListNode]bool)
+
+	currentNode := head
+
+	for currentNode != nil {
+		if vasitedNode[currentNode] {
+			return true
+		}
+
+		vasitedNode[currentNode] = true
+
+		currentNode = currentNode.Next
+
+	}
+
+	return false
+}
+
+func detectCycle(head *ListNode) *ListNode {
+	visitedNode := make(map[*ListNode]*ListNode)
+
+	currentNode := head
+
+	for currentNode != nil {
+		if _, ok := visitedNode[currentNode]; ok {
+			return visitedNode[currentNode]
+		}
+		visitedNode[currentNode] = currentNode
+		currentNode = currentNode.Next
+	}
+
+	return nil
+}
+
+func removeElements(head *ListNode, val int) *ListNode {
+	var res *ListNode
+
+	// find head
+	for head != nil {
+		if head.Val == val {
+			head = head.Next
+		} else {
+			res = head
+			break
+		}
+	}
+
+	// save pointer to head
+	currentNode := res
+	for currentNode != nil && currentNode.Next != nil {
+		if currentNode.Next.Val == val {
+			currentNode.Next = currentNode.Next.Next
+		} else {
+			currentNode = currentNode.Next
+		}
+	}
+
+	return res
+
+}
