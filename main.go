@@ -1796,3 +1796,28 @@ func removeElements(head *ListNode, val int) *ListNode {
 	return res
 
 }
+
+func insertGreatestCommonDivisors(head *ListNode) *ListNode {
+
+	var helper func(*ListNode)
+	helper = func(head *ListNode) {
+		if head != nil && head.Next != nil {
+			divisor := 1
+			if head.Val <= head.Next.Val {
+				divisor = head.Val
+			} else {
+				divisor = head.Next.Val
+			}
+
+			for (head.Val%divisor != 0) && (head.Next.Val%divisor != 0) {
+				divisor--
+			}
+
+			newNode := &ListNode{Val: divisor, Next: head.Next}
+			head.Next = newNode
+			helper(newNode.Next)
+		}
+	}
+	helper(head)
+	return head
+}
