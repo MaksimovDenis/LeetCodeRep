@@ -11,8 +11,11 @@ import (
 )
 
 func main() {
-	s := "leetcode"
-	fmt.Println(reverseVowels(s))
+	l1 := &ListNodeTwo{Val: 2, Next: &ListNodeTwo{Val: 4, Next: &ListNodeTwo{Val: 3}}}
+
+	l2 := &ListNodeTwo{Val: 5, Next: &ListNodeTwo{Val: 6, Next: &ListNodeTwo{Val: 4}}}
+	list := addTwoNumbers(l1, l2)
+	displayList(list)
 
 }
 
@@ -294,7 +297,7 @@ func longestCommonPrefix(strs []string) string {
 	return strs[0]
 }
 
-func isValid(s string) bool {
+func isValid1(s string) bool {
 	var a bool
 mainLoop:
 	for i := 0; i < len(s)-1; i++ {
@@ -1291,15 +1294,4 @@ func isPerfectSquare(num int) bool {
 		i++
 	}
 	return n == num
-}
-
-func canConstruct(ransomNote string, magazine string) bool {
-	var result int
-	for v, _ := range ransomNote {
-		result += v
-	}
-	for v, _ := range magazine {
-		result -= v
-	}
-	return result == 0
 }
