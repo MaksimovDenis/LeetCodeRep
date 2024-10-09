@@ -1350,3 +1350,18 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 
 	return dummyNode.Next
 }
+
+func reverseList(head *ListNode) *ListNode {
+	var prev *ListNode
+
+	cur := head
+
+	for cur != nil {
+		tmp := cur
+		cur = cur.Next
+		tmp.Next = prev
+		prev = tmp
+	}
+
+	return prev
+}
