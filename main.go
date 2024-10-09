@@ -8,15 +8,11 @@ import (
 	"strings"
 	"sync"
 	"unicode"
+	"unicode/utf8"
 )
 
 func main() {
-	l1 := &ListNodeTwo{Val: 2, Next: &ListNodeTwo{Val: 4, Next: &ListNodeTwo{Val: 3}}}
-
-	l2 := &ListNodeTwo{Val: 5, Next: &ListNodeTwo{Val: 6, Next: &ListNodeTwo{Val: 4}}}
-	list := addTwoNumbers(l1, l2)
-	displayList(list)
-
+	fmt.Println(licenseKeyFormatting("2-5g-3-J", 2))
 }
 
 type ListNode1 struct {
@@ -1296,4 +1292,61 @@ func isPerfectSquare(num int) bool {
 	return n == num
 }
 
-"test"
+func findComplement(num int) int {
+	new := strconv.FormatInt(int64(num), 2)
+	var convStr string
+	for _, value := range new {
+		if string(value) == "0" {
+			convStr += "1"
+		} else {
+			convStr += "0"
+		}
+	}
+	result, _ := (strconv.ParseInt(convStr, 2, 64))
+	return int(result)
+}
+
+func licenseKeyFormatting(s string, k int) string {
+	split := strings.ReplaceAll(s, "-", "")
+	len := utf8.RuneCountInString(split)
+	first := len % k
+	others := len / k
+	var result string
+	if first != 0 {
+		for first > 0 {
+			for _, v := range split {
+				result += string(v)
+				first--
+			}
+		}
+		result += "-"
+
+		for i := utf8.RuneCountInString(result) - 1; i < len; i = i + others {
+			result += string(rune(split[i])) + "-"
+		}
+	}
+	return result
+}
+
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	dummyNode := &ListNode{Next: head}
+
+	var length int
+
+	curr := dummyNode
+
+	for curr.Next != nil {
+		length++
+		curr = curr.Next
+	}
+
+	curr = dummyNode
+
+	for i := 0; i <= (length - n - 1); i++ {
+		curr = curr.Next
+	}
+
+	curr.Next = curr.Next.Next
+
+	return dummyNode.Next
+}
