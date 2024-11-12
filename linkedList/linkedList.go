@@ -1,8 +1,8 @@
 package linkedlist
 
 type ListNode struct {
-	Val  int
-	Next *ListNode
+	Value int
+	Next  *ListNode
 }
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
@@ -28,17 +28,72 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	return dummyNode.Next
 }
 
-func reverseList(head *ListNode) *ListNode {
+func ReverseList(head *ListNode) *ListNode {
 	var prev *ListNode
 
-	cur := head
+	curr := head
 
-	for cur != nil {
-		tmp := cur
-		cur = cur.Next
+	for curr != nil {
+		tmp := curr
+		curr = curr.Next
 		tmp.Next = prev
 		prev = tmp
 	}
 
 	return prev
+}
+
+func MiddleOfTheList(head *ListNode) *ListNode {
+	if head == nil {
+		return head
+	}
+
+	slow := head
+	fast := head
+
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	return slow
+}
+
+func PalindromLinkedList(head *ListNode) bool {
+	if head == nil {
+		return true
+	}
+
+	slow := head
+	fast := head
+
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	var prev *ListNode
+
+	curr := slow
+
+	for curr != nil {
+		tmp := curr
+		curr = curr.Next
+		tmp.Next = prev
+		prev = tmp
+	}
+
+	first := head
+	second := prev
+
+	for second != nil {
+		if first.Value != prev.Value {
+			return false
+		}
+
+		first = first.Next
+		second = second.Next
+	}
+
+	return true
 }
