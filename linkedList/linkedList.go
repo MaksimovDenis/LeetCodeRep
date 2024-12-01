@@ -97,3 +97,58 @@ func PalindromLinkedList(head *ListNode) bool {
 
 	return true
 }
+
+func reorderList(head *ListNode) {
+	if head == nil {
+		return
+	}
+
+	slow := head
+	fast := head
+
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	second := slow.Next
+	slow.Next = nil
+
+	var prev *ListNode
+
+	curr := second
+
+	for curr != nil {
+		tmp := curr
+		curr = curr.Next
+		tmp.Next = prev
+		prev = tmp
+	}
+
+	second = prev
+
+	first := head
+
+	for second != nil {
+		firstNext := first.Next
+		secondNext := second.Next
+
+		first.Next = second
+		second.Next = firstNext
+
+		first = firstNext
+		second = secondNext
+	}
+}
+
+func PremidNode(head *ListNode) *ListNode {
+	slow := head
+	fast := head
+
+	for fast != nil && fast.Next != nil && fast.Next.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	return slow
+}
