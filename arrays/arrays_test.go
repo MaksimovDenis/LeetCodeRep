@@ -29,3 +29,25 @@ func TestConstructor(t *testing.T) {
 		})
 	}
 }
+
+func TestPivotSun(t *testing.T) {
+	arr := []int{1, 7, 3, 6, 5, 6}
+
+	tests := []struct {
+		name string
+		args []int
+		want int
+	}{
+		{
+			name: "OK",
+			args: arr,
+			want: 3,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			require.Equal(t, pivotIndex(test.args), test.want)
+		})
+	}
+}
