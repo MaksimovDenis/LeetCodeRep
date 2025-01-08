@@ -1,4 +1,4 @@
-module LeetCodeRep
+module LeetCodeRep/arrays
 
 go 1.22.4
 
