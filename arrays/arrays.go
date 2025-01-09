@@ -38,3 +38,49 @@ func pivotIndex(nums []int) int {
 
 	return -1
 }
+
+func subarraySum(nums []int, k int) int {
+	var currPx int
+	var count int
+	px := make(map[int]int)
+
+	px[0] = 1
+
+	for i := 0; i < len(nums); i++ {
+		currPx += nums[i]
+
+		if value, ok := px[currPx-k]; ok {
+			count += value
+		}
+
+		px[currPx] += 1
+	}
+
+	return count
+}
+
+func missingNumber(nums []int) int {
+	neededSum := ((0 + len(nums) + 1) * len(nums)) / 2
+	actualSum := 0
+
+	for _, value := range nums {
+		actualSum += value
+	}
+
+	return neededSum - actualSum
+}
+
+func findDuplicate(nums []int) int {
+	seen := make(map[int]bool)
+	for _, num := range nums {
+		if seen[num] {
+			return num
+		}
+		seen[num] = true
+	}
+	return -1
+}
+
+func rotateArray(nums []int) []int {
+
+}
