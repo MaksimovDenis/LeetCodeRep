@@ -101,3 +101,30 @@ func isMonotonic(nums []int) bool {
 
 	return incr || decr
 }
+
+func findLengthOfLCIS(nums []int) int {
+	if len(nums) < 2 {
+		return 1
+	}
+
+	count := 1
+	tmp := 1
+
+	for i := 1; i < len(nums); i++ {
+		if nums[i] > nums[i-1] {
+			tmp++
+		} else {
+			if count < tmp {
+				count = tmp
+			}
+
+			tmp = 1
+		}
+	}
+
+	if tmp > count {
+		count = tmp
+	}
+
+	return count
+}
