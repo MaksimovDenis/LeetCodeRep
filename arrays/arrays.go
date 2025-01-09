@@ -82,5 +82,22 @@ func findDuplicate(nums []int) int {
 }
 
 func rotateArray(nums []int) []int {
+	var n []int
+	return n
+}
 
+func isMonotonic(nums []int) bool {
+	if len(nums) < 2 {
+		return true
+	}
+
+	incr := true
+	decr := true
+
+	for i := 1; i < len(nums); i++ {
+		incr = incr && nums[i] >= nums[i-1]
+		decr = decr && nums[i] <= nums[i-1]
+	}
+
+	return incr || decr
 }
