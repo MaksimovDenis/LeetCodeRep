@@ -682,10 +682,10 @@ func mergeTwoLists2(list1 *ListNode, list2 *ListNode) *ListNode {
 		list = list.Next
 	}
 	if list1 == nil {
-		list.Next = list1
+		list.Next = list2
 	}
 	if list2 == nil {
-		list.Next = list2
+		list.Next = list1
 	}
 	return dummy.Next
 }
