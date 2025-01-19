@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"math/rand"
 	"sort"
 	"strconv"
 	"strings"
@@ -11,8 +12,33 @@ import (
 	"unicode/utf8"
 )
 
+func changePointer(p *int) *int {
+	v := 3
+	return &v
+}
+
 func main() {
-	fmt.Println(licenseKeyFormatting("2-5g-3-J", 2))
+	arr := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
+
+	/*n := len(arr[0])
+	m := len(arr)
+
+	left := 0
+	right := m*n - 1
+
+	mid := (left + right) / 2
+
+	val := arr[mid/n][mid%m]*/
+
+	fmt.Println(arr[0][2])
+	fmt.Println(rand.Int())
+
+	v := 5
+	p := &v
+
+	println(*p)
+	p = changePointer(p)
+	println(*p)
 }
 
 type ListNode1 struct {
@@ -1326,4 +1352,27 @@ func licenseKeyFormatting(s string, k int) string {
 		}
 	}
 	return result
+}
+
+func searchMatrix(matrix [][]int, target int) bool {
+	n := len(matrix[0])
+	m := len(matrix)
+
+	left := 0
+	right := m*n - 1
+
+	for left <= right {
+		mid := (left + right) / 2
+		val := matrix[mid/n][mid%n]
+
+		if val == target {
+			return true
+		} else if val < target {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+
+	return false
 }

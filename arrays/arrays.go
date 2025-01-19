@@ -128,3 +128,44 @@ func findLengthOfLCIS(nums []int) int {
 
 	return count
 }
+
+func binarySearch(arr []int, target int) int {
+	if len(arr) == 0 {
+		return -1
+	}
+
+	left := 0
+	right := len(arr) - 1
+
+	for left <= right {
+		mid := (left + right) / 2
+		val := arr[mid]
+
+		if val == target {
+			return mid
+		} else if target < val {
+			right = mid - 1
+		} else {
+			left = mid + 1
+		}
+	}
+
+	return -1
+}
+
+func merge(nums1 []int, m int, nums2 []int, n int) {
+	k := m + n - 1
+	i := m - 1
+	j := n - 1
+
+	for j >= 0 {
+		if i >= 0 && nums1[i] > nums2[j] {
+			nums1[k] = nums1[i]
+			i--
+		} else {
+			nums1[k] = nums2[j]
+			j--
+		}
+		k--
+	}
+}
