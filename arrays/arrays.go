@@ -169,3 +169,36 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 		k--
 	}
 }
+
+func searchMatrix(matrix [][]int, target int) bool {
+	if len(matrix[0]) == 0 || len(matrix) == 0 {
+		return false
+	}
+
+	for _, m := range matrix {
+		if target >= m[0] && target <= m[len(m)-1] {
+			if binarySearch2DMatrix(m, 0, len(m)-1, target) {
+				return true
+			}
+		}
+	}
+
+	return false
+}
+
+func binarySearch2DMatrix(nums []int, left int, right int, tg int) bool {
+	for left <= right {
+		mid := left + (right-left)/2
+		val := nums[mid]
+
+		if tg == val {
+			return true
+		} else if val < tg {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+
+	return false
+}
