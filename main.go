@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"math/rand"
 	"sort"
 	"strconv"
 	"strings"
@@ -17,28 +16,42 @@ func changePointer(p *int) *int {
 	return &v
 }
 
+func mergeArrs(arrs ...[]int) []int {
+	length := 0
+	for _, arr := range arrs {
+		length += len(arr)
+	}
+
+	res := make([]int, length)
+
+	h := res[0:length]
+
+	for _, arr := range arrs {
+		copy(h, arr)
+		h = h[len(arr):]
+	}
+
+	return res
+}
+
 func main() {
-	arr := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
+	//arr := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 
-	/*n := len(arr[0])
-	m := len(arr)
+	arr1 := []int{1, 2, 3}
+	arr2 := []int{4, 5, 6}
+	arr3 := []int{7, 8, 9}
 
-	left := 0
-	right := m*n - 1
+	res := mergeArrs(arr1, arr2, arr3)
 
-	mid := (left + right) / 2
+	fmt.Println(res)
 
-	val := arr[mid/n][mid%m]*/
-
-	fmt.Println(arr[0][2])
-	fmt.Println(rand.Int())
-
-	v := 5
-	p := &v
-
-	println(*p)
-	p = changePointer(p)
-	println(*p)
+	x := []int{}
+	x = append(x, 0)  // 0 len = 1 cap = 1
+	x = append(x, 1)  // 0 1 len = 2 cap = 2
+	x = append(x, 2)  // 0 1 2 len = 3 cap = 4
+	y := append(x, 3) // 0 1 2 3 len = 4 cap = 4
+	z := append(x, 4) // 0 1 2 4 len = 4 cap = 4
+	fmt.Println(y, z) // [0124] [0124]
 }
 
 type ListNode1 struct {
@@ -1375,4 +1388,44 @@ func searchMatrix(matrix [][]int, target int) bool {
 	}
 
 	return false
+}
+
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	if l1 == nil {
+		return l1
+	}
+
+	if l2 == nil {
+		return l2
+	}
+
+	var carry int
+
+	dummy := &ListNode{}
+
+	list := dummy
+
+	for l1 != nil || l2 != nil || carry != 0 {
+		sum := 0
+
+		if l1 != nil {
+			sum += l1.Val
+			l1 = l1.Next
+		}
+
+		if l2 != nil {
+			sum += l2.Val
+			l2 = l2.Next
+		}
+
+		sum += carry
+
+		list.Next = &ListNode{Val: sum % 10}
+
+		carry = sum / 10
+
+		list = list.Next
+	}
+
+	return dummy.Next
 }

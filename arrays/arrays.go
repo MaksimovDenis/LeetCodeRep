@@ -1,5 +1,10 @@
 package arrays
 
+import (
+	"math/rand"
+	"strconv"
+)
+
 type NumArray struct {
 	px []int
 }
@@ -201,4 +206,91 @@ func binarySearch2DMatrix(nums []int, left int, right int, tg int) bool {
 	}
 
 	return false
+}
+
+// OZON1
+func generate(n, m int) [][]int {
+	res := make([][]int, n)
+	u := make(map[int]struct{})
+
+	for i := 0; i < n; i++ {
+		row := make([]int, m)
+		res[i] = row
+
+		for j := 0; j < m; j++ {
+			for {
+				v := rand.Int()
+
+				if _, ok := u[v]; ok {
+					row[j] = v
+					u[v] = struct{}{}
+					break
+				}
+			}
+		}
+	}
+
+	return res
+}
+
+func mergeArrs(arrs ...[]int) []int {
+	length := 0
+	for _, arr := range arrs {
+		length += len(arr)
+	}
+
+	res := make([]int, length)
+
+	h := res[0:length]
+
+	for _, arr := range arrs {
+		copy(h, arr)
+		h = h[len(arr):]
+	}
+
+	return res
+}
+
+var aplphabet = []byte{'x', 'y', 'z'}
+
+func decode(hash string) (password string) {
+	for length := 1; ; length++ {
+		for i := 0; ; i++ {
+
+			p := strconv.FormatInt(int64(i), len(aplphabet))
+			pwd := ""
+
+			for _, c := range p {
+				switch c {
+				case '0':
+					pwd += "x"
+				case '1':
+					pwd += "y"
+				case '2':
+					pwd += "z"
+				}
+			}
+
+			delta := length - len(pwd)
+			if delta > 0 {
+				for j := 0; j < delta; j++ {
+					pwd = "x" + pwd
+				}
+			}
+
+			if delta < 0 {
+				break
+			}
+
+			test := dummyhash(pwd)
+			if test == hash {
+				return pwd
+			}
+
+		}
+	}
+}
+
+func dummyhash(str string) string {
+	return str
 }
