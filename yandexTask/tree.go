@@ -49,3 +49,45 @@ func helperSymmetrical(left, right *TreeNode) bool {
 
 	return helperSymmetrical(left.Left, right.Right) && helperSymmetrical(left.Right, right.Left)
 }
+
+// --------SAME TREE---------------------------
+// time: O(N) mem: O(2h)
+func isSameTree(p *TreeNode, q *TreeNode) bool {
+	if p == nil || q == nil {
+		return p == q
+	}
+
+	if p.Val != q.Val {
+		return false
+	}
+
+	return isSameTree(q.Left, p.Left) && isSameTree(q.Right, p.Right)
+}
+
+// -------PathSum------------------------------
+// time: O(N) mem: O(h)
+func hasPathSum(root *TreeNode, targetSum int) bool {
+	if root == nil {
+		return false
+	}
+
+	return hasPathSumHelper(root, targetSum, 0)
+}
+
+func hasPathSumHelper(root *TreeNode, targetSum int, count int) bool {
+	if root == nil {
+		return false
+	}
+
+	count += root.Val
+
+	if targetSum == count && isLeaf(root) {
+		return true
+	}
+
+	return hasPathSumHelper(root.Left, targetSum, count) || hasPathSumHelper(root.Right, targetSum, count)
+}
+
+func isLeaf(root *TreeNode) bool {
+	return root.Left == nil && root.Right == nil
+}

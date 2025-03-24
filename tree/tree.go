@@ -55,3 +55,23 @@ func postTravers(root *TreeNode, result *[]int) {
 	postTravers(root.Right, result)
 	*result = append(*result, root.Val)
 }
+
+func rightSideView(root *TreeNode) []int {
+    var result []int
+    rightSideViewTravers(root, 0, &result)
+    return result
+}
+
+func rightSideViewTravers(root *TreeNode, level int, result *[]int) {
+    if root == nil {
+        return
+    }
+
+    if len(*result) <= level {
+        *result = append(*result, 0)
+    }
+
+    (*result)[level] = root.Val
+    rightSideViewTravers(root.Left, level+1, result)
+    rightSideViewTravers(root.Right, level+1, result)
+}

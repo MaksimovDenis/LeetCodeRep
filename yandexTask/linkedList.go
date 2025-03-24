@@ -70,7 +70,7 @@ func mergeKLists(lists []*ListNode) *ListNode {
 		var mergeLists []*ListNode
 
 		for i := 0; i < len(lists); i += 2 {
-			l1 := lists[0]
+			l1 := lists[i]
 
 			var l2 *ListNode
 			if (i + 1) < len(lists) {
