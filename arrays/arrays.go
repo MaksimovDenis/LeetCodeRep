@@ -17,7 +17,7 @@ func Constructor(nums []int) NumArray {
 		px = append(px, px[i]+nums[i])
 	}
 
-	return NumArray{px}
+	return NumArray{px: px}
 }
 
 func (this *NumArray) SumRange(left int, right int) int {
@@ -45,23 +45,23 @@ func pivotIndex(nums []int) int {
 }
 
 func subarraySum(nums []int, k int) int {
-	var currPx int
-	var count int
-	px := make(map[int]int)
+	var currSum, sum int
 
-	px[0] = 1
-
-	for i := 0; i < len(nums); i++ {
-		currPx += nums[i]
-
-		if value, ok := px[currPx-k]; ok {
-			count += value
-		}
-
-		px[currPx] += 1
+	for _, value := range nums {
+		sum += value
 	}
 
-	return count
+	for idx, value := range nums {
+		tmp := sum - currSum - value
+
+		if tmp == currSum {
+			return idx
+		}
+
+		currSum += value
+	}
+
+	return -1
 }
 
 func missingNumber(nums []int) int {
